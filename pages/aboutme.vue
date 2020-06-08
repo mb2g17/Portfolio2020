@@ -10,7 +10,7 @@
       md6
     >
 
-      <h1>Home</h1>
+      <h1>About Me</h1>
 
     </v-flex>
   </v-layout>
@@ -20,6 +20,6 @@
 import {Component, Vue} from "nuxt-property-decorator";
 
 @Component({})
-export default class IndexPage extends Vue {
+export default class AboutMePage extends Vue {
 }
 </script>
