@@ -4,13 +4,16 @@
   <v-app-bar app id="header">
 
     <!-- Drawer link -->
-    <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon
+      class="d-block d-md-none"
+      @click="$emit('drawerIconClick')"
+    ></v-app-bar-nav-icon>
 
     <!-- Title -->
     <v-toolbar-title id="title">Matthew Barnes</v-toolbar-title>
 
     <!-- Links -->
-    <v-tabs right>
+    <v-tabs right class="d-none d-md-block">
       <v-tab nuxt to="/">Home</v-tab>
       <v-tab nuxt to="/projects">Projects</v-tab>
       <v-tab nuxt to="/aboutme">About Me</v-tab>
