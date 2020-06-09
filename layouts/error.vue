@@ -3,22 +3,21 @@
     <v-content class="pt-0">
 
       <v-container>
-        <v-layout
-          column
-          justify-center
-          align-center
-        >
-          <v-flex
-            xs12
-            sm8
-            md6
-          >
+        <v-row>
+
+          <v-col cols="12">
+            <h1 id="whoops">Whoops!</h1>
+          </v-col>
+
+          <v-col>
+            <!-- Code -->
+            <h1>Error {{ error.statusCode }}</h1>
 
             <!-- Message -->
-            <h1>{{ message }}</h1>
+            <p>{{ error.message }}</p>
+          </v-col>
 
-          </v-flex>
-        </v-layout>
+        </v-row>
       </v-container>
 
     </v-content>
@@ -42,18 +41,23 @@
       return "empty";
     }
 
-    get message() {
-      if (this.error.statusCode === 404)
-        return "404 Not Found";
-      else
-        return "An error occurred";
-    }
-
     head() {
-      return { title: this.message };
+      return { title: this.error.message };
     }
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  @import "~vuetify/src/styles/styles";
+
+  #whoops {
+    // Desktop
+    @media #{map-get($display-breakpoints, 'md-and-up')} {
+      font-size: 150px;
+    }
+    // Phone
+    @media #{map-get($display-breakpoints, 'sm-and-down')} {
+      font-size: 70px;
+    }
+  }
 </style>
