@@ -1,7 +1,10 @@
 <template>
 
   <!-- Header -->
-  <v-app-bar app id="header">
+  <v-app-bar
+    app
+    id="header"
+  >
 
     <!-- Drawer link -->
     <v-app-bar-nav-icon

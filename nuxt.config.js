@@ -1,4 +1,5 @@
-const colors = require('vuetify/es5/util/colors').default
+const colors = require('vuetify/es5/util/colors').default;
+require("dotenv").config();
 
 module.exports = {
   mode: 'universal',
@@ -30,6 +31,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/api'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -37,15 +39,16 @@ module.exports = {
   buildModules: [
     '@nuxt/typescript-build',
     '@nuxtjs/vuetify',
+
+    // Doc: https://github.com/nuxt-community/dotenv-module
+    '@nuxtjs/dotenv',
   ],
   /*
   ** Nuxt.js modules
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
-    // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv',
+    '@nuxtjs/axios'
   ],
   /*
   ** Axios module configuration
