@@ -22,9 +22,12 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from "nuxt-property-decorator";
+  import {Component, Vue} from "nuxt-property-decorator";
   import { Context } from "@nuxt/types";
   import Project from "~/plugins/api/components/Project";
+  import Framework from "~/plugins/api/components/Framework";
+
+  import { frameworkStore } from "@/store";
 
   @Component({
     async asyncData(context: Context) {
@@ -48,7 +51,19 @@
 
       if (stories) {
         this.starredProjects = stories as Project[];
+        this.$axios;
       }
+
+      // -- DEBUG --
+      const testStory: Framework = new Framework({
+        uuid: "hello",
+        name: "my name"
+      });
+      frameworkStore.insert({
+        uuid: "hi",
+        story: testStory
+      });
+      console.log(frameworkStore.find("hi"));
     }
   }
 </script>

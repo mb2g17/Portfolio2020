@@ -20,50 +20,54 @@ export const ApiFunction: ApiFunctionType = async (axios: NuxtAxiosInstance, opt
   const api = process.env.API;
   const token = process.env.TOKEN;
 
-  // If we have our variables
-  if (api && token) {
-    // Parses our request
-    const response = await axios.get(api, {
-      params: {
-        ...options,
-        token, version: "published"
-      },
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      }
-    });
-
-    // Creates our story array
-    const stories: Story[] = [];
-
-    // Goes through all the stories
-    for (const story of response.data.stories) {
-      // Creates story based on component type
-      switch (story.content.component)
-      {
-        case "project":
-          stories.push(new Project(story));
-          break;
-        case "change":
-          stories.push(new Change(story));
-          break;
-        case "framework":
-          stories.push(new Framework(story));
-          break;
-        case "language":
-          stories.push(new Language(story));
-          break;
-        case "tag":
-          stories.push(new Tag(story));
-          break;
-        case "technology":
-          stories.push(new Technology(story));
-          break;
-      }
-    }
-
-    // Returns our story array
-    return stories;
+  // Guard: if we don't have our variables
+  if (!api || !token) {
+    throw Error("Environment variables not set up correctly.");
   }
+
+  // Parses our request
+  const response = await axios.get(api, {
+    params: {
+      ...options,
+      token, version: "published"
+    },
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+
+  // Creates our story array
+  const stories: Story[] = [];
+
+  // Goes through all the stories
+  for (const story of response.data.stories) {
+    // Creates story based on component type
+    switch (story.content.component)
+    {
+      case "project":
+        stories.push(new Project(story));
+        break;
+      case "change":
+        stories.push(new Change(story));
+        break;
+      case "framework":
+        stories.push(new Framework(story));
+        break;
+      case "language":
+        stories.push(new Language(story));
+        break;
+      case "tag":
+        stories.push(new Tag(story));
+        break;
+      case "technology":
+        stories.push(new Technology(story));
+        break;
+      default:
+        throw Error(`Unrecognised component '${story.content.component}' on story '${story.full_slug}'.`);
+    }
+  }
+
+  // Returns our story array
+  return stories;
 };
