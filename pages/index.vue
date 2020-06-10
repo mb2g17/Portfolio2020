@@ -12,10 +12,11 @@
 
       <h1>Home</h1>
 
-      <p v-for="project in starredProjects">
-        {{ project.name }}
-        {{ project.release }}
-      </p>
+      <h2>Starred projects:</h2>
+      <div v-for="project in starredProjects">
+        <p>{{ project.name }}</p>
+        <p>{{ project.release }}</p>
+      </div>
 
     </v-flex>
   </v-layout>
@@ -44,26 +45,17 @@
     private starredProjects: Project[] = [];
 
     async mounted() {
-      const stories = await this.$api(this.$axios, {
+      // Gets all starred projects
+      const result = await this.$api(this.$axios, {
         "starts_with": "projects",
         "filter_query[starred][is]": "true"
       });
 
-      if (stories) {
-        this.starredProjects = stories as Project[];
+      // If we didn't error somewhere
+      if (result) {
+        this.starredProjects = result as Project[];
         this.$axios;
       }
-
-      // -- DEBUG --
-      const testStory: Framework = new Framework({
-        uuid: "hello",
-        name: "my name"
-      });
-      frameworkStore.insert({
-        uuid: "hi",
-        story: testStory
-      });
-      console.log(frameworkStore.find("hi"));
     }
   }
 </script>

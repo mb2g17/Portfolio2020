@@ -11,15 +11,40 @@
     >
 
       <h1>Changelog</h1>
+      <p>This is the changelog, where I log all of the changes to this portfolio, including the addition of projects, editing how the website works, fixing bugs etc.</p>
+
+      <Changelog :changes="changes" />
 
     </v-flex>
   </v-layout>
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "nuxt-property-decorator";
+  import { Context } from "@nuxt/types";
+  import {Component, Vue} from "nuxt-property-decorator";
+  import Changelog from "~/components/Changelog.vue";
+  import Change from "~/plugins/api/components/Change";
 
-@Component({})
-export default class ChangelogPage extends Vue {
-}
+  @Component({
+    async asyncData(ctx: Context) {
+      // Fetches changes
+      const stories = await ctx.app.$api(ctx.$axios, {
+        "starts_with": "changelog"
+      });
+
+      // If call was successful, return list of changes
+      if (stories) {
+        return {
+          changes: stories as Change[]
+        };
+      }
+    },
+    components: {
+      Changelog
+    }
+  })
+  export default class ChangelogPage extends Vue {
+    /** A list of changes, populated by asyncData */
+    private changes: Change[] = [];
+  }
 </script>
