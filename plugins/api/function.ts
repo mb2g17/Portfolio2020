@@ -1,4 +1,4 @@
-import {NuxtAxiosInstance} from "@nuxtjs/axios";
+import { NuxtAxiosInstance } from "@nuxtjs/axios";
 import Story from "~/plugins/api/components/Story";
 import Project from "~/plugins/api/components/Project";
 import Change from "~/plugins/api/components/Change";
@@ -6,6 +6,7 @@ import Framework from "~/plugins/api/components/Framework";
 import Language from "~/plugins/api/components/Language";
 import Tag from "~/plugins/api/components/Tag";
 import Technology from "~/plugins/api/components/Technology";
+import { spaceVersionModule } from "~/utils/store/store-accessor";
 
 /**
  * API plugin function type
@@ -18,18 +19,32 @@ export type ApiFunctionType = (axios: NuxtAxiosInstance, options?: any) => Promi
 export const ApiFunction: ApiFunctionType = async (axios: NuxtAxiosInstance, options?: any) => {
   // Gets environment variables
   const api = process.env.API;
+  const versionApi = process.env.VERSION_API;
   const token = process.env.TOKEN;
 
   // Guard: if we don't have our variables
-  if (!api || !token) {
+  if (!api || !token || !versionApi) {
     throw Error("Environment variables not set up correctly.");
+  }
+
+  // If we haven't fetched a space version
+  if (!spaceVersionModule.isVersionUpdated) {
+    // Gets the newest space version
+    const spaceVersionResponse = await axios.get(versionApi, {
+      params: { token }
+    });
+
+    // Updates store with this version
+    spaceVersionModule.updateVersion(spaceVersionResponse.data.space.version);
   }
 
   // Parses our request
   const response = await axios.get(api, {
     params: {
       ...options,
-      token, version: "published"
+      token,
+      version: "published",
+      versions: spaceVersionModule.version
     },
     headers: {
       "Accept": "application/json",
