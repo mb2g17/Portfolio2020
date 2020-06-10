@@ -8,6 +8,11 @@
     :sort-desc="true"
     :hide-default-footer="true"
   >
+    <!-- Date -->
+    <template v-slot:item.story.content.date="{ item }">
+      {{ filterDate(item.story.content.date) }}
+    </template>
+
     <!-- Markdown -->
     <template v-slot:item.story.content.changes="{ item }">
       <vue-markdown class="markdown" :source="item.story.content.changes"></vue-markdown>
@@ -49,6 +54,16 @@
         width: '200px'
       }
     ];
+
+    /**
+     * Filters datetime string to give just the date
+     * @param dateTime - the date time string
+     * @returns the same thing but with just the date
+     */
+    private filterDate(dateTime: string) {
+      let date = new Date(dateTime);
+      return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    }
   }
 </script>
 
