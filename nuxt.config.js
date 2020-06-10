@@ -51,6 +51,12 @@ module.exports = {
     '@nuxtjs/axios'
   ],
   /*
+  ** Router stuff
+   */
+  router: {
+    middleware: 'store-populator'
+  },
+  /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */

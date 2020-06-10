@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-  import {Component, Vue} from "nuxt-property-decorator";
+  import { Component, Vue } from "nuxt-property-decorator";
   import { Context } from "@nuxt/types";
   import Project from "~/plugins/api/components/Project";
   import Framework from "~/plugins/api/components/Framework";
