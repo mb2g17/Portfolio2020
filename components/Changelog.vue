@@ -1,15 +1,29 @@
 <template>
+
   <v-data-table
     :headers="headers"
     :items="changes"
     item-key="story.content.date"
     :sort-by="['story.content.date']"
     :sort-desc="true"
+    :hide-default-footer="true"
   >
+    <!-- Markdown -->
     <template v-slot:item.story.content.changes="{ item }">
-      <vue-markdown :source="item.story.content.changes"></vue-markdown>
+      <vue-markdown class="markdown" :source="item.story.content.changes"></vue-markdown>
     </template>
+
+    <!-- Pagination in the header -->
+    <template v-slot:top="{ pagination, options, updateOptions }">
+      <v-data-footer
+        :pagination="pagination"
+        :options="options"
+        @update:options="updateOptions"
+        items-per-page-text="$vuetify.dataTable.itemsPerPageText"/>
+    </template>
+
   </v-data-table>
+
 </template>
 
 <script lang="ts">
@@ -32,12 +46,14 @@
         text: "Logs",
         value: "story.content.changes",
         sortable: false,
-        width: '85%'
+        width: '200px'
       }
     ];
   }
 </script>
 
 <style scoped>
-
+  .markdown {
+    max-width:850px; /* This makes sure markdown doesn't stretch the table */
+  }
 </style>
