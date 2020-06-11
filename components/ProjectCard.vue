@@ -55,13 +55,13 @@
 
   @Component({})
   export default class ProjectCard extends Vue {
-    /** Project that we are displaying */
-    @Prop(Object) project!: Project;
-
     private languageStore = languageStore;
     private frameworkStore = frameworkStore;
     private technologyStore = technologyStore;
     private tagStore = tagStore;
+
+    /** Project that we are displaying */
+    @Prop(Object) project!: Project;
   }
 </script>
 
@@ -71,7 +71,7 @@
     transition: transform 0.2s;
   }
   .project-card:hover {
-    transform: scale(1.1);
+    transform: scale(1.08);
     transition: transform 0.2s;
     cursor: pointer;
   }

@@ -52,8 +52,17 @@
       >
       </v-pagination>
 
+      <!-- Loading projects -->
+      <v-container class="d-flex justify-center" v-if="loading">
+        <v-progress-circular
+          :size="100"
+          indeterminate
+        >
+        </v-progress-circular>
+      </v-container>
+
       <!-- Projects -->
-      <v-row>
+      <v-row v-if="!loading">
         <v-col :cols="3" v-for="project in projects" :key="project.uuid">
           <ProjectCard :project="project" />
         </v-col>
@@ -104,8 +113,15 @@
     /** Models what page we're on in the project pagination */
     private page: number = 1;
 
+    /** If true, we are loading projects */
+    private loading: boolean = false;
+
     @Watch('page')
     private async onPageChange(newPage: number, oldPage: number) {
+      // Loading projects
+      this.loading = true;
+
+      // Request projects page
       const projects: Project[] = await this.$api(this.$axios, {
         "starts_with": "project",
         "sort_by": "content.date_of_completion:desc",
@@ -113,6 +129,10 @@
         "per_page": 12
       }) as Project[];
 
+      // No longer loading projects
+      this.loading = false;
+
+      // Update projects property
       this.projects = projects;
     }
   }
