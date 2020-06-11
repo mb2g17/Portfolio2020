@@ -1,10 +1,11 @@
 <template>
 
-  <v-card>
+  <v-card class="project-card">
     <!-- Banner -->
     <v-img
       contain
       class="white--text align-end"
+      :lazy-src="require('~/assets/placeholder-logo.jpg')"
       :src="project.banner"
     >
       <v-icon
@@ -22,22 +23,22 @@
     <v-card-text>
 
       <!-- Languages -->
-      <v-chip v-for="language in project.languages" color="red" class="mr-1 mb-2">
+      <v-chip v-for="language in project.languages" color="red" class="project-chip mr-1 mb-2">
         {{ languageStore.find(language).name }}
       </v-chip>
 
       <!-- Frameworks -->
-      <v-chip v-for="framework in project.frameworks" color="blue" class="mr-1 mb-2">
+      <v-chip v-for="framework in project.frameworks" color="blue" class="project-chip mr-1 mb-2">
         {{ frameworkStore.find(framework).name }}
       </v-chip>
 
       <!-- Technologies -->
-      <v-chip v-for="technology in project.technologies" color="green" class="mr-1 mb-2">
+      <v-chip v-for="technology in project.technologies" color="green" class="project-chip mr-1 mb-2">
         {{ technologyStore.find(technology).name }}
       </v-chip>
 
       <!-- Tags -->
-      <v-chip v-for="tag in project.tags" color="purple" class="mr-1 mb-2">
+      <v-chip v-for="tag in project.tags" color="purple" class="project-chip mr-1 mb-2">
         {{ tagStore.find(tag).name }}
       </v-chip>
 
@@ -65,4 +66,23 @@
 </script>
 
 <style scoped>
+  .project-card {
+    transform: scale(1);
+    transition: transform 0.2s;
+  }
+  .project-card:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s;
+    cursor: pointer;
+  }
+
+  .project-chip {
+    transform: scale(1) rotate(0deg);
+    transition: transform 0.2s;
+  }
+  .project-chip:hover {
+    transform: scale(1.1) rotate(-2deg);
+    transition: transform 0.2s;
+    cursor: pointer;
+  }
 </style>
