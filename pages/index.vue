@@ -1,25 +1,15 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
+  <v-container>
 
-      <h1>Home</h1>
+    <h1>Home</h1>
 
-      <h2>Starred projects:</h2>
-      <div v-for="project in starredProjects" :key="project.uuid">
-        <p>{{ project.name }}</p>
-        <p>{{ project.release }}</p>
-      </div>
+    <h2>Starred projects:</h2>
+    <div v-for="project in starredProjects" :key="project.uuid">
+      <p>{{ project.name }}</p>
+      <p>{{ project.release }}</p>
+    </div>
 
-    </v-flex>
-  </v-layout>
+  </v-container>
 </template>
 
 <script lang="ts">

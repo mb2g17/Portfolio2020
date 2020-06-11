@@ -1,19 +1,9 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
+  <v-container>
 
       <h1>About Me</h1>
 
-    </v-flex>
-  </v-layout>
+  </v-container>
 </template>
 
 <script lang="ts">

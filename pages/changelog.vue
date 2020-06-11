@@ -1,22 +1,12 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
+  <v-container>
 
-      <h1>Changelog</h1>
-      <p>This is the changelog, where I log all of the changes to this portfolio, including the addition of projects, editing how the website works, fixing bugs etc.</p>
+    <h1>Changelog</h1>
+    <p>This is the changelog, where I log all of the changes to this portfolio, including the addition of projects, editing how the website works, fixing bugs etc.</p>
 
-      <Changelog :changes="changes" />
+    <Changelog :changes="changes" />
 
-    </v-flex>
-  </v-layout>
+  </v-container>
 </template>
 
 <script lang="ts">
