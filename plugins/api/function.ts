@@ -11,12 +11,12 @@ import { spaceVersionModule } from "~/utils/store/store-accessor";
 /**
  * API plugin function type
  */
-export type ApiFunctionType = (axios: NuxtAxiosInstance, options?: any) => Promise<Story[] | undefined>;
+export type ApiFunctionType = (axios: NuxtAxiosInstance, options?: any, headers?: boolean) => Promise<Story[] | [Story[], any] | undefined>;
 
 /**
  * Function of API plugin
  */
-export const ApiFunction: ApiFunctionType = async (axios: NuxtAxiosInstance, options?: any) => {
+export const ApiFunction: ApiFunctionType = async (axios: NuxtAxiosInstance, options?: any, headers?: boolean) => {
   // Gets environment variables
   const api = process.env.API;
   const versionApi = process.env.VERSION_API;
@@ -83,6 +83,9 @@ export const ApiFunction: ApiFunctionType = async (axios: NuxtAxiosInstance, opt
     }
   }
 
-  // Returns our story array
-  return stories;
+  // If user wants headers, give them, if not, just return stories
+  if (headers)
+    return [stories, response.headers];
+  else
+    return stories;
 };

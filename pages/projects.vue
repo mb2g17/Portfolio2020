@@ -45,9 +45,16 @@
 
       </v-row> -->
 
+      <!-- Project pagination -->
+      <v-pagination
+        v-model="page"
+        :length="Math.ceil(total / 12)"
+      >
+      </v-pagination>
+
       <!-- Projects -->
       <v-row>
-        <v-col :cols="4" v-for="project in projects" :key="project.uuid">
+        <v-col :cols="3" v-for="project in projects" :key="project.uuid">
           <ProjectCard :project="project" />
         </v-col>
       </v-row>
@@ -57,31 +64,56 @@
 </template>
 
 <script lang="ts">
-  import {Component, Vue} from "nuxt-property-decorator";
+  import {Component, Vue, Watch} from "nuxt-property-decorator";
   import { Context } from "@nuxt/types";
   import Project from "~/plugins/api/components/Project";
   import { languageStore, frameworkStore, technologyStore, tagStore } from "~/utils/store/store-accessor";
   import ProjectCard from "~/components/ProjectCard.vue";
+  import Story from "~/plugins/api/components/Story";
 
   @Component({
     components: {
       ProjectCard
     },
     async asyncData(ctx: Context) {
+      const [projects, headers]: [Project[], any] = await ctx.app.$api(ctx.$axios, {
+        "starts_with": "project",
+        "sort_by": "content.date_of_completion:desc",
+        "page": 1,
+        "per_page": 12
+      }, true) as [Project[], any];
+
       return {
-        projects: await ctx.app.$api(ctx.$axios, {
-          "starts_with": "project",
-          "sort_by": "content.date_of_completion:desc"
-      })};
+        projects,
+        total: parseInt(headers.total)
+      };
     }
   })
   export default class ProjectsPage extends Vue {
-    /** The projects being displayed on the page */
-    private projects: Project[] = [];
-
     private languageStore = languageStore;
     private frameworkStore = frameworkStore;
     private technologyStore = technologyStore;
     private tagStore = tagStore;
+
+    /** The projects being displayed on the page */
+    private projects: Project[] = [];
+
+    /** The total number of projects, retrieved from 'total' property in header */
+    private total: number = 0;
+
+    /** Models what page we're on in the project pagination */
+    private page: number = 1;
+
+    @Watch('page')
+    private async onPageChange(newPage: number, oldPage: number) {
+      const projects: Project[] = await this.$api(this.$axios, {
+        "starts_with": "project",
+        "sort_by": "content.date_of_completion:desc",
+        "page": newPage,
+        "per_page": 12
+      }) as Project[];
+
+      this.projects = projects;
+    }
   }
 </script>
