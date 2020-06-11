@@ -12,6 +12,7 @@ export default class Project extends Story {
   public readonly frameworks: string[];
   public readonly technologies: string[];
   public readonly banner: string;
+  public readonly summary: string;
   public readonly description: string;
   public readonly screenshots: string[];
   public readonly demo: string;
@@ -28,6 +29,7 @@ export default class Project extends Story {
     this.frameworks = story.content.frameworks;
     this.technologies = story.content.technologies;
     this.banner = story.content.banner.filename;
+    this.summary = story.content.summary;
     this.description = story.content.description;
     this.screenshots = story.content.screenshots.map((x: any) => x.filename); // map to .filename
     this.demo = story.content.Demo.url;
