@@ -2,14 +2,23 @@
 
   <v-container>
 
-    <!-- Project pagination -->
-    <v-pagination
-      v-model="page"
-      :length="Math.ceil(total / 12)"
-    >
-    </v-pagination>
+    <!-- Header -->
+    <v-container class="d-flex">
+      <!-- Toggle filter button -->
+      <v-btn
+        outlined
+        @click="$emit('togglefilter')"
+      >Toggle filter</v-btn>
 
-    <!-- Loading projects -->
+      <!-- Pagination -->
+      <v-pagination
+        v-model="page"
+        :length="Math.ceil(total / 12)"
+      >
+      </v-pagination>
+    </v-container>
+
+    <!-- Loading animation -->
     <v-container class="d-flex justify-center" v-if="loading">
       <v-progress-circular
         :size="100"
@@ -21,7 +30,7 @@
     <!-- Projects -->
     <v-container fluid>
       <v-row>
-        <v-col :cols="4" v-for="project in projects" :key="project.uuid">
+        <v-col :cols="12 / cols" v-for="project in projects" :key="project.uuid">
           <ProjectCard :project="project" />
         </v-col>
       </v-row>
@@ -45,8 +54,11 @@
     /** A list of projects to display */
     @Prop(Array) projects!: Project[];
 
-    /** The total number of projects there are*/
+    /** The total number of projects there are */
     @Prop(Number) total!: number;
+
+    /** How many columns should there be */
+    @Prop({default: 4, type: Number}) cols!: number;
 
     /** If true, loading animation is displayed */
     private loading: boolean = false;

@@ -5,7 +5,7 @@
 
       <v-row>
         <!-- Filter row -->
-        <v-col :cols="3">
+        <v-col :cols="3" v-show="filterShow">
           <v-row>
             <v-col :cols="12">
 
@@ -31,13 +31,15 @@
 
         </v-col>
 
-        <!-- Column 2 -->
-        <v-col :cols="9">
+        <!-- Projects row -->
+        <v-col :cols="filterShow ? 9 : 12">
 
           <ProjectPaginator
             :projects="projects"
             :total="total"
+            :cols="filterShow ? 3 : 4"
             @pagechange="onPageChange"
+            @togglefilter="onToggleFilter"
           />
 
         </v-col>
@@ -84,6 +86,9 @@
     /** The total number of projects, retrieved from 'total' property in header */
     private total: number = 0;
 
+    /** If true, filter is shown, false if not */
+    private filterShow: boolean = false;
+
     private async onPageChange({newPage, loadingCallback}: {newPage: number, loadingCallback: () => void}) {
       // Request projects page
       const projects: Project[] = await this.$api(this.$axios, {
@@ -98,6 +103,10 @@
 
       // Runs loading callback
       loadingCallback();
+    }
+
+    private onToggleFilter() {
+      this.filterShow = !this.filterShow;
     }
   }
 </script>
