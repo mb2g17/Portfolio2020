@@ -24,7 +24,7 @@ export default class Project extends Story {
     this.name = story.name;
     this.dateOfCompletion = story.content.date_of_completion;
     this.tags = story.content.tags;
-    this.starred = story.content.starred === "true";
+    this.starred = story.content.starred;
     this.languages = story.content.languages;
     this.frameworks = story.content.frameworks;
     this.technologies = story.content.technologies;

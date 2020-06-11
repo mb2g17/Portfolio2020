@@ -7,6 +7,11 @@
       class="white--text align-end"
       :src="project.banner"
     >
+      <v-icon
+        v-if="project.starred"
+        color="orange"
+        class="ml-1 mb-1"
+      >mdi-star</v-icon>
     </v-img>
 
     <!-- Summary -->
