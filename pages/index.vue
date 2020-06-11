@@ -16,7 +16,6 @@
       <div v-for="project in starredProjects" :key="project.uuid">
         <p>{{ project.name }}</p>
         <p>{{ project.release }}</p>
-        <p>Type: {{ project.constructor.name }}</p>
       </div>
 
     </v-flex>
@@ -37,10 +36,6 @@
         "starts_with": "projects",
         "filter_query[starred][is]": "true"
       });
-      if (result) {
-        console.log("Getting first project's name");
-        console.log((result[0] as Project).name);
-      }
       return {starredProjects: result as Project[]};
     }
   })

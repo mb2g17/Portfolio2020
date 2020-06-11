@@ -9,7 +9,7 @@ export default abstract class Story {
    * Constructor of story
    * @param story
    */
-  public constructor(story: any) {
+  protected constructor(story: any) {
     this.uuid = story.uuid;
   }
 }

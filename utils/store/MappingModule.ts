@@ -61,5 +61,12 @@ export default abstract class MappingModule<T> extends VuexModule {
   public get size(): number {
     return Object.keys(this.mapping).length;
   }
+
+  /**
+   * Returns a list of stored UUIDs
+   */
+  public get uuids(): string[] {
+    return Object.keys(this.mapping);
+  }
 }
 
