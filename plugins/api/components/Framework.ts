@@ -1,10 +1,14 @@
 import Story from "~/plugins/api/components/Story";
 
 /**
- * Framework wrapper class
+ * Framework class
  */
 export default class Framework extends Story {
-  public get name(): string {
-    return this.story.name;
+  /** The name of this framework */
+  public readonly name: string;
+
+  public constructor(story: any) {
+    super(story);
+    this.name = story.name;
   }
 }

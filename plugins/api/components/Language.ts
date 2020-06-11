@@ -1,10 +1,14 @@
 import Story from "~/plugins/api/components/Story";
 
 /**
- * Language wrapper class
+ * Language class
  */
 export default class Language extends Story {
-  public get name(): string {
-    return this.story.name;
+  /** The name of this language */
+  public readonly name: string;
+
+  public constructor(story: any) {
+    super(story);
+    this.name = story.name;
   }
 }

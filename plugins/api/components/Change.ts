@@ -1,14 +1,19 @@
 import Story from "~/plugins/api/components/Story";
 
 /**
- * Changelog wrapper class
+ * Changelog class
  */
 export default class Change extends Story {
-  public get date(): string {
-    return this.story.content.date;
-  }
+  /** Date at which this change happened */
+  public readonly date: string;
 
-  public get changes(): string {
-    return this.story.content.changes;
+  /** Logged changes, markdown format */
+  public readonly changes: string;
+
+  public constructor(story: any) {
+    super(story);
+    let bufferDate: Date = new Date(story.content.date);
+    this.date = bufferDate.getFullYear() + "-" + (bufferDate.getMonth() + 1) + "-" + bufferDate.getDate();
+    this.changes = story.content.changes;
   }
 }

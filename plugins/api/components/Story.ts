@@ -1,19 +1,15 @@
 /**
- * Story abstract wrapper class
+ * Story abstract class
  */
 export default abstract class Story {
-  /** The raw JSON of this story */
-  protected story: any;
+  /** Unique identifier of this story */
+  public readonly uuid: string;
 
   /**
    * Constructor of story
    * @param story
    */
   public constructor(story: any) {
-    this.story = story;
-  }
-
-  public get uuid(): string {
-    return this.story.uuid;
+    this.uuid = story.uuid;
   }
 }

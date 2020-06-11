@@ -1,10 +1,14 @@
 import Story from "~/plugins/api/components/Story";
 
 /**
- * Technology wrapper class
+ * Technology class
  */
 export default class Technology extends Story {
-  public get name(): string {
-    return this.story.name;
+  /** The name of this technology */
+  public readonly name: string;
+
+  public constructor(story: any) {
+    super(story);
+    this.name = story.name;
   }
 }

@@ -13,9 +13,10 @@
       <h1>Home</h1>
 
       <h2>Starred projects:</h2>
-      <div v-for="project in starredProjects">
+      <div v-for="project in starredProjects" :key="project.uuid">
         <p>{{ project.name }}</p>
         <p>{{ project.release }}</p>
+        <p>Type: {{ project.constructor.name }}</p>
       </div>
 
     </v-flex>
@@ -32,12 +33,15 @@
 
   @Component({
     async asyncData(context: Context) {
-      /*const result = await context.app.$api(context.$axios, {
+      const result = await context.app.$api(context.$axios, {
         "starts_with": "projects",
         "filter_query[starred][is]": "true"
       });
-      console.log(result);*/
-      return {};
+      if (result) {
+        console.log("Getting first project's name");
+        console.log((result[0] as Project).name);
+      }
+      return {starredProjects: result as Project[]};
     }
   })
   export default class IndexPage extends Vue {
@@ -45,17 +49,11 @@
     private starredProjects: Project[] = [];
 
     async mounted() {
-      // Gets all starred projects
-      const result = await this.$api(this.$axios, {
+      /*const result = await this.$api(this.$axios, {
         "starts_with": "projects",
         "filter_query[starred][is]": "true"
       });
-
-      // If we didn't error somewhere
-      if (result) {
-        this.starredProjects = result as Project[];
-        this.$axios;
-      }
+      this.starredProjects = result as Project[];*/
     }
   }
 </script>
