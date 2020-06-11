@@ -1,75 +1,49 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
+  <v-container>
 
       <h1>Projects</h1>
 
-      <!-- Filter
       <v-row>
+        <!-- Filter row -->
+        <v-col :cols="3">
+          <v-row>
+            <v-col :cols="12">
 
-        <v-col :cols="6">
-          <h2>Languages</h2>
-          <v-chip v-for="uuid in languageStore.uuids" :key="uuid" color="red">
-            {{ languageStore.find(uuid).name }}
-          </v-chip>
+              <FilterCard colour="red" :store="languageStore" title="Languages" />
+
+            </v-col>
+            <v-col :cols="12">
+
+              <FilterCard colour="blue" :store="frameworkStore" title="Frameworks" />
+
+            </v-col>
+            <v-col :cols="12">
+
+              <FilterCard colour="green" :store="technologyStore" title="Technologies" />
+
+            </v-col>
+            <v-col :cols="12">
+
+              <FilterCard colour="purple" :store="tagStore" title="Tags" :default-attribute-enabled="false" />
+
+            </v-col>
+          </v-row>
+
         </v-col>
 
-        <v-col :cols="6">
-          <h2>Frameworks</h2>
-          <v-chip v-for="uuid in frameworkStore.uuids" :key="uuid" color="blue">
-            {{ frameworkStore.find(uuid).name }}
-          </v-chip>
-        </v-col>
+        <!-- Column 2 -->
+        <v-col :cols="9">
 
-        <v-col :cols="6">
-          <h2>Technologies</h2>
-          <v-chip v-for="uuid in technologyStore.uuids" :key="uuid" color="green">
-            {{ technologyStore.find(uuid).name }}
-          </v-chip>
-        </v-col>
+          <ProjectPaginator
+            :projects="projects"
+            :total="total"
+            @pagechange="onPageChange"
+          />
 
-        <v-col :cols="6">
-          <h2>Tags</h2>
-          <v-chip v-for="uuid in tagStore.uuids" :key="uuid" color="purple">
-            {{ tagStore.find(uuid).name }}
-          </v-chip>
-        </v-col>
-
-      </v-row> -->
-
-      <!-- Project pagination -->
-      <v-pagination
-        v-model="page"
-        :length="Math.ceil(total / 12)"
-      >
-      </v-pagination>
-
-      <!-- Loading projects -->
-      <v-container class="d-flex justify-center" v-if="loading">
-        <v-progress-circular
-          :size="100"
-          indeterminate
-        >
-        </v-progress-circular>
-      </v-container>
-
-      <!-- Projects -->
-      <v-row v-if="!loading">
-        <v-col :cols="3" v-for="project in projects" :key="project.uuid">
-          <ProjectCard :project="project" />
         </v-col>
       </v-row>
 
-    </v-flex>
-  </v-layout>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -77,12 +51,12 @@
   import { Context } from "@nuxt/types";
   import Project from "~/plugins/api/components/Project";
   import { languageStore, frameworkStore, technologyStore, tagStore } from "~/utils/store/store-accessor";
-  import ProjectCard from "~/components/ProjectCard.vue";
-  import Story from "~/plugins/api/components/Story";
+  import FilterCard from "~/components/FilterCard.vue";
+  import ProjectPaginator from "~/components/ProjectPaginator.vue";
 
   @Component({
     components: {
-      ProjectCard
+      ProjectPaginator, FilterCard
     },
     async asyncData(ctx: Context) {
       const [projects, headers]: [Project[], any] = await ctx.app.$api(ctx.$axios, {
@@ -110,17 +84,7 @@
     /** The total number of projects, retrieved from 'total' property in header */
     private total: number = 0;
 
-    /** Models what page we're on in the project pagination */
-    private page: number = 1;
-
-    /** If true, we are loading projects */
-    private loading: boolean = false;
-
-    @Watch('page')
-    private async onPageChange(newPage: number, oldPage: number) {
-      // Loading projects
-      this.loading = true;
-
+    private async onPageChange({newPage, loadingCallback}: {newPage: number, loadingCallback: () => void}) {
       // Request projects page
       const projects: Project[] = await this.$api(this.$axios, {
         "starts_with": "project",
@@ -129,11 +93,11 @@
         "per_page": 12
       }) as Project[];
 
-      // No longer loading projects
-      this.loading = false;
-
       // Update projects property
-      this.projects = projects;
+      Vue.set(this, "projects", projects);
+
+      // Runs loading callback
+      loadingCallback();
     }
   }
 </script>

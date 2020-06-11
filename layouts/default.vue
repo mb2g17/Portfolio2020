@@ -11,9 +11,7 @@
 
     <!-- Content -->
     <v-content>
-      <v-container>
-        <nuxt />
-      </v-container>
+      <nuxt />
     </v-content>
 
     <!-- Footer -->
