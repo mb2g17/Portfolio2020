@@ -198,11 +198,6 @@
 
   // Desktop
   @media #{map-get($display-breakpoints, 'md-and-up')} {
-    // Hide main scrollbar
-    html, body {
-      overflow-y: hidden;
-    }
-
     // Add scrollbars to filter and project columns
     $elem-height: calc(100vh - 180px);
     .projects-col {
@@ -213,27 +208,5 @@
       max-height: $elem-height;
       overflow-y: auto;
     }
-  }
-
-  /* width */
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #222;
-    border-radius: 6px;
-  }
-
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 6px;
-  }
-
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
   }
 </style>

@@ -6,6 +6,7 @@
     @input="onInput"
     absolute
     temporary
+    style="position:fixed"
   >
 
     <!-- List title -->

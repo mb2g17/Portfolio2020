@@ -47,3 +47,32 @@
     }
   }
 </script>
+
+<style lang="scss">
+  html, body {
+    overflow-y: auto;
+  }
+
+  /* width */
+  ::-webkit-scrollbar {
+    background: #222;
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #222;
+    border-radius: 6px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 6px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+</style>
