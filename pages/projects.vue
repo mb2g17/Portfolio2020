@@ -46,6 +46,8 @@
         <!-- Projects row -->
         <v-col cols="12" :md="filterShow ? 9 : 12">
           <ProjectPaginator
+            v-model="page"
+
             :projects="projects"
             :total="total"
             :xs-cols="1"
@@ -56,7 +58,6 @@
             :show-technologies="filteredTechnologies !== null"
             :show-tags="filteredTags !== null"
 
-            @pagechange="onPageChange"
             @togglefilter="onToggleFilter"
           />
         </v-col>
@@ -74,6 +75,9 @@
   import ProjectPaginator from "~/components/ProjectPaginator.vue";
   import Language from "~/plugins/api/components/Language";
 
+  /** How many projects should be loaded per page */
+  const per_page: number = 12;
+
   @Component({
     components: {
       ProjectPaginator, FilterCard
@@ -83,7 +87,7 @@
         "starts_with": "project",
         "sort_by": "content.date_of_completion:desc",
         "page": 1,
-        "per_page": 12
+        "per_page": per_page
       }, true) as [Project[], any];
 
       return {
@@ -104,6 +108,9 @@
     /** The total number of projects, retrieved from 'total' property in header */
     private total: number = 0;
 
+    /** The current page number */
+    private page: number = 1;
+
     /** If true, filter is shown, false if not */
     private filterShow: boolean = false;
 
@@ -119,22 +126,67 @@
     /** Tag UUIDs to filter; null if no filtering required */
     private filteredTags: string[] | null = null;
 
-    private async onPageChange({newPage, loadingCallback}: {newPage: number, loadingCallback: () => void}) {
-      // Request projects page
-      const projects: Project[] = await this.$api(this.$axios, {
+    @Watch('filteredLanguages')
+    @Watch('filteredFrameworks')
+    @Watch('filteredTechnologies')
+    @Watch('filteredTags')
+    private async onFilteredLanguagesChange(newVal: string[] | null, oldVal: string[] | null) {
+      // Resets page and reload projects
+      this.page = 1;
+      await this.loadProjects();
+    }
+
+    /**
+     * Loads a page of projects
+     */
+    private async loadProjects() {
+      // Constructs query parameters
+      let queryParams: any = {
         "starts_with": "project",
         "sort_by": "content.date_of_completion:desc",
-        "page": newPage,
-        "per_page": 12
-      }) as Project[];
+        "page": this.page,
+        "per_page": per_page
+      };
+
+      // Adds all filters
+      const filters: [string[] | null, string][] = [
+        [this.filteredLanguages, "languages"],
+        [this.filteredFrameworks, "frameworks"],
+        [this.filteredTechnologies, "technologies"],
+        [this.filteredTags, "tags"],
+      ]
+      for (const filter of filters) {
+        const [filterArray, filterName] = filter;
+        if (filterArray !== null)
+          queryParams[`filter_query[${filterName}][in_array]`] = filterArray.join(',');
+      }
+
+      // Request projects page
+      const response: [Project[], any] = await this.$api(this.$axios, queryParams, true) as [Project[], any];
+      const [projects, headers] = response;
+
+      // Updates total
+      this.total = parseInt(headers.total);
 
       // Update projects property
       Vue.set(this, "projects", projects);
-
-      // Runs loading callback
-      loadingCallback();
     }
 
+    /**
+     * When the user changes the pagination page
+     */
+    @Watch('page')
+    private async onPageChange(newPage: number, oldPage: number) {
+      // Sets new page
+      this.page = newPage;
+
+      // Loads new page of projects
+      await this.loadProjects();
+    }
+
+    /**
+     * When the user clicks toggle filter button
+     */
     private onToggleFilter() {
       this.filterShow = !this.filterShow;
     }

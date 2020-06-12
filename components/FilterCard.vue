@@ -21,7 +21,7 @@
 
     <v-expand-transition>
       <v-card-text v-show="showChips">
-        <v-chip-group column multiple>
+        <v-chip-group column multiple v-model="selectedUuidIndexes">
           <v-chip filter :color="colour" v-for="story in store.uuids" :key="story">{{ store.find(story).name }}</v-chip>
         </v-chip-group>
       </v-card-text>
@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-  import {Component, Prop, Vue} from "nuxt-property-decorator";
+  import {Component, Prop, Vue, Watch} from "nuxt-property-decorator";
   import MappingModule from "~/utils/store/MappingModule";
   import Story from "~/plugins/api/components/Story";
 
@@ -56,9 +56,24 @@
     @Prop({default: () => [], type: Array})
     private value!: string[] | null;
 
+    /** Indexes of UUIDs that are selected */
+    private selectedUuidIndexes: number[] = [];
+
     /** If true, attribute is enabled */
     private get attributeEnabled(): boolean {
       return this.value !== null;
+    }
+
+    /** The list of selected story uuids */
+    private get selectedUuids(): string[] {
+      return this.selectedUuidIndexes.map(i => this.store.uuids[i]);
+    }
+
+    @Watch('selectedUuids')
+    private onSelectedUuidsChange(newUuids: string[], oldUuids: string[]) {
+      // If this attribute is enabled, update value
+      if (this.attributeEnabled)
+        this.$emit("input", newUuids);
     }
 
     private onToolbarClick() {
@@ -70,7 +85,7 @@
       if (this.attributeEnabled)
         this.$emit("input", null);
       else
-        this.$emit("input", []);
+        this.$emit("input", this.selectedUuids);
     }
   }
 </script>

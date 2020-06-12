@@ -15,7 +15,7 @@
       <v-col cols="12" md="6">
         <!-- Pagination -->
         <v-pagination
-          v-model="page"
+          v-model="value"
           :length="Math.ceil(total / 12)"
         >
         </v-pagination>
@@ -89,15 +89,12 @@
     private loading: boolean = false;
 
     /** The page number we're on */
-    private page: number = 1;
+    private value: number = 1;
 
-    @Watch('page')
+    @Watch('value')
     private async onPageChange(newPage: number, oldPage: number) {
-      this.loading = true;
-      this.$emit("pagechange", {
-        newPage,
-        loadingCallback: () => this.loading = false
-      });
+      // Emits v-model event
+      this.$emit("input", newPage);
     }
   }
 </script>
