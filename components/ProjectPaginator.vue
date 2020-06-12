@@ -32,7 +32,7 @@
     </v-container>
 
     <!-- Projects -->
-    <v-container class="projects-container" fluid>
+    <v-container class="projects-container" ref="projects-container" fluid>
       <v-row>
         <v-col :cols="12 / xsCols" :md="12 / mdCols" v-for="project in projects" :key="project.uuid">
           <ProjectCard
@@ -96,6 +96,20 @@
     /** The page number we're on */
     private value: number = 1;
 
+    /**
+     * Scrolls the project container back to the top
+     */
+    private scrollProjectContainerUp() {
+      // Scrolls project container to the top
+      const projectsContainer: Element = this.$refs["projects-container"] as Element;
+      projectsContainer.scrollTop = 0;
+    }
+
+    @Watch('projects')
+    private onProjectsChange() {
+      this.scrollProjectContainerUp();
+    }
+
     @Watch('value')
     private async onPageChange(newPage: number, oldPage: number) {
       // Emits v-model event
@@ -109,7 +123,7 @@
 
   // Desktop
   @media #{map-get($display-breakpoints, 'md-and-up')} {
-    // Add scrollbars to filter and project columns
+    // Add scrollbars to projects container
     $elem-height: calc(100vh - 280px);
     .projects-container {
       max-height: $elem-height;
