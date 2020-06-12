@@ -5,6 +5,7 @@
     <v-toolbar
       flat
       dark
+      v-ripple
       class="filtercard-toolbar"
       :color="`${attributeEnabled ? colour : 'grey'} darken-4`"
       @click="onToolbarClick"
@@ -14,7 +15,13 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn @click.stop="onEnablerClick" fab outlined>
+      <v-btn
+        fab
+        outlined
+        @mousedown.stop=""
+        @touchstart.stop=""
+        @click.stop="onEnablerClick"
+      >
         <v-icon :color="`${colour} lighten-3`">{{ attributeEnabled ? "mdi-check" : "mdi-close" }}</v-icon>
       </v-btn>
     </v-toolbar>
@@ -77,15 +84,22 @@
     }
 
     private onToolbarClick() {
-      this.showChips = !this.showChips;
+      // If this attribute is enabled, show the chips
+      if (this.attributeEnabled)
+        this.showChips = !this.showChips;
     }
 
     private onEnablerClick() {
-      // If attribute is enabled, disable it
-      if (this.attributeEnabled)
+      // If attribute is enabled, disable it and hide chips
+      if (this.attributeEnabled) {
         this.$emit("input", null);
-      else
+        this.showChips = false;
+      }
+      // If attribute is disabled, enable it and show chips
+      else {
         this.$emit("input", this.selectedUuids);
+        this.showChips = true;
+      }
     }
   }
 </script>
