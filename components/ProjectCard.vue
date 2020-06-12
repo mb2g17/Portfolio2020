@@ -23,22 +23,22 @@
     <v-card-text>
 
       <!-- Languages -->
-      <v-chip v-for="language in project.languages" :key="language" color="red" class="project-chip mr-1 mb-2">
+      <v-chip v-for="language in project.languages" :key="language" v-if="showLanguages" color="red" class="project-chip mr-1 mb-2">
         {{ languageStore.find(language).name }}
       </v-chip>
 
       <!-- Frameworks -->
-      <v-chip v-for="framework in project.frameworks" :key="framework" color="blue" class="project-chip mr-1 mb-2">
+      <v-chip v-for="framework in project.frameworks" :key="framework" v-if="showFrameworks" color="blue" class="project-chip mr-1 mb-2">
         {{ frameworkStore.find(framework).name }}
       </v-chip>
 
       <!-- Technologies -->
-      <v-chip v-for="technology in project.technologies" :key="technology" color="green" class="project-chip mr-1 mb-2">
+      <v-chip v-for="technology in project.technologies" :key="technology" v-if="showTechnologies" color="green" class="project-chip mr-1 mb-2">
         {{ technologyStore.find(technology).name }}
       </v-chip>
 
       <!-- Tags -->
-      <v-chip v-for="tag in project.tags" :key="tag" color="purple" class="project-chip mr-1 mb-2">
+      <v-chip v-for="tag in project.tags" :key="tag" v-if="showTags" color="purple" class="project-chip mr-1 mb-2">
         {{ tagStore.find(tag).name }}
       </v-chip>
 
@@ -62,6 +62,18 @@
 
     /** Project that we are displaying */
     @Prop(Object) project!: Project;
+
+    /** If true, language chips are shown */
+    @Prop({default: true, type: Boolean}) showLanguages!: boolean;
+
+    /** If true, framework chips are shown */
+    @Prop({default: true, type: Boolean}) showFrameworks!: boolean;
+
+    /** If true, technology chips are shown */
+    @Prop({default: true, type: Boolean}) showTechnologies!: boolean;
+
+    /** If true, tag chips are shown */
+    @Prop({default: true, type: Boolean}) showTags!: boolean;
   }
 </script>
 

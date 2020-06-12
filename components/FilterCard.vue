@@ -33,6 +33,7 @@
 <script lang="ts">
   import {Component, Prop, Vue} from "nuxt-property-decorator";
   import MappingModule from "~/utils/store/MappingModule";
+  import Story from "~/plugins/api/components/Story";
 
   @Component({})
   export default class FilterCard extends Vue {
@@ -45,17 +46,19 @@
     /** Title of the filter card */
     @Prop(String) title!: string;
 
-    /** Initial value of attribute enabled */
-    @Prop({default: true, type: Boolean}) defaultAttributeEnabled!: boolean;
-
     /** If true, chips are shown */
     private showChips: boolean = false;
 
-    /** If true, attribute is enabled */
-    private attributeEnabled: boolean = true;
+    /** The attribute value UUIDs to filter.
+     * If empty list, no values are filtered, so show everything.
+     * If null, this attribute is disabled and should be hidden.
+     */
+    @Prop({default: () => [], type: Array})
+    private value!: string[] | null;
 
-    mounted() {
-      this.attributeEnabled = this.defaultAttributeEnabled;
+    /** If true, attribute is enabled */
+    private get attributeEnabled(): boolean {
+      return this.value !== null;
     }
 
     private onToolbarClick() {
@@ -63,7 +66,11 @@
     }
 
     private onEnablerClick() {
-      this.attributeEnabled = !this.attributeEnabled;
+      // If attribute is enabled, disable it
+      if (this.attributeEnabled)
+        this.$emit("input", null);
+      else
+        this.$emit("input", []);
     }
   }
 </script>

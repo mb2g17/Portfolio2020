@@ -35,7 +35,13 @@
     <v-container fluid>
       <v-row>
         <v-col :cols="12 / xsCols" :md="12 / mdCols" v-for="project in projects" :key="project.uuid">
-          <ProjectCard :project="project" />
+          <ProjectCard
+            :project="project"
+            :show-languages="showLanguages"
+            :show-frameworks="showFrameworks"
+            :show-technologies="showTechnologies"
+            :show-tags="showTags"
+          />
         </v-col>
       </v-row>
     </v-container>
@@ -66,6 +72,18 @@
 
     /** How many columns should there be on mobile */
     @Prop({default: 4, type: Number}) xsCols!: number;
+
+    /** If true, language chips are shown */
+    @Prop({default: true, type: Boolean}) showLanguages!: boolean;
+
+    /** If true, framework chips are shown */
+    @Prop({default: true, type: Boolean}) showFrameworks!: boolean;
+
+    /** If true, technology chips are shown */
+    @Prop({default: true, type: Boolean}) showTechnologies!: boolean;
+
+    /** If true, tag chips are shown */
+    @Prop({default: true, type: Boolean}) showTags!: boolean;
 
     /** If true, loading animation is displayed */
     private loading: boolean = false;
