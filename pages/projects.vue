@@ -37,7 +37,6 @@
                 colour="purple"
                 :store="tagStore"
                 title="Tags"
-                :default-attribute-enabled="false"
               />
             </v-col>
           </v-row>
@@ -130,16 +129,6 @@
     /** Tag UUIDs to filter; null if no filtering required */
     private filteredTags: string[] | null = null;
 
-    @Watch('filteredLanguages')
-    @Watch('filteredFrameworks')
-    @Watch('filteredTechnologies')
-    @Watch('filteredTags')
-    private async onFilteredLanguagesChange(newVal: string[] | null, oldVal: string[] | null) {
-      // Resets page and reload projects
-      this.page = 1;
-      await this.loadProjects();
-    }
-
     /**
      * Loads a page of projects
      */
@@ -176,14 +165,24 @@
       Vue.set(this, "projects", projects);
     }
 
+    @Watch('filteredLanguages')
+    @Watch('filteredFrameworks')
+    @Watch('filteredTechnologies')
+    @Watch('filteredTags')
+    private async onFilteredLanguagesChange(newVal: string[] | null, oldVal: string[] | null) {
+      // If page number won't change, load projects manually
+      if (this.page === 1) {
+        await this.loadProjects();
+      } else // If page number is changing, page update will refresh projects automatically
+        this.page = 1;
+    }
+
     /**
      * When the user changes the pagination page
      */
     @Watch('page')
     private async onPageChange(newPage: number, oldPage: number) {
-      // Sets new page
-      this.page = newPage;
-
+      console.log("Page changed: " + this.page);
       // Loads new page of projects
       await this.loadProjects();
     }

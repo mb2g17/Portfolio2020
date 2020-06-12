@@ -87,6 +87,35 @@
     }
 
     /**
+     * Calculates if value and selected UUIDs are equal
+     */
+    private isValueAndSelectedUuidsEqual(): boolean {
+      if (this.value === null)
+        return false;
+
+      // Converts value to id array
+      const valueID = this.value.map(uuid => this.store.uuids.indexOf(uuid));
+
+      // Checks if value and selectedUuidIndexes are equal
+      const valueIDSet = new Set(valueID);
+      const selectedUuidIndexesSet = new Set(this.selectedUuidIndexes);
+      let equal: boolean = true;
+
+      // Checks if equal
+      if (valueIDSet.size !== selectedUuidIndexesSet.size) {
+        equal = false;
+      } else {
+        for (const val of valueIDSet) {
+          if (!selectedUuidIndexesSet.has(val)) {
+            equal = true;
+          }
+        }
+      }
+
+      return equal;
+    }
+
+    /**
      * When attribute value UUIDs to filter changes.
      * This usually happens when project card chip is clicked.
      */
@@ -99,23 +128,8 @@
       // Converts value to id array
       const valueID = newValue.map(uuid => this.store.uuids.indexOf(uuid));
 
-      // Checks if value and selectedUuidIndexes are equal
-      const valueIDSet = new Set(valueID);
-      const selectedUuidIndexesSet = new Set(this.selectedUuidIndexes);
-      let equal: boolean = true;
-
-      if (valueIDSet.size !== selectedUuidIndexesSet.size) {
-        equal = false;
-      } else {
-        for (const val of valueIDSet) {
-          if (!selectedUuidIndexesSet.has(val)) {
-            equal = true;
-          }
-        }
-      }
-
       // If they are not equal, update and return
-      if (!equal) {
+      if (!this.isValueAndSelectedUuidsEqual()) {
         this.selectedUuidIndexes = valueID;
         return;
       }
@@ -128,9 +142,18 @@
      */
     @Watch('selectedUuids')
     private onSelectedUuidsChange(newUuids: string[], oldUuids: string[]) {
-      // If this attribute is enabled, update value
-      if (this.attributeEnabled)
+      // If attribute is disabled, no update is needed
+      if (!this.attributeEnabled)
+        return;
+
+      // If value is null, no update is needed
+      if (this.value === null)
+        return;
+
+      // If value and selected uuids are not equal, update value
+      if (!this.isValueAndSelectedUuidsEqual()) {
         this.$emit("input", newUuids);
+      }
     }
 
     private onToolbarClick() {
