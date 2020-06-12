@@ -44,7 +44,7 @@
         </v-col>
 
         <!-- Projects column -->
-        <v-col class="projects-col" cols="12" :md="filterShow ? 9 : 12">
+        <v-col class="projects-col pb-0" cols="12" :md="filterShow ? 9 : 12">
           <ProjectPaginator
             v-model="page"
 
@@ -221,10 +221,10 @@
   // Desktop
   @media #{map-get($display-breakpoints, 'md-and-up')} {
     // Add scrollbars to filter and project columns
-    $elem-height: calc(100vh - 180px);
+    $elem-height: calc(100vh - 185px);
     .projects-col {
-      height: $elem-height;
-      overflow-y: scroll;
+      /*height: $elem-height;
+      overflow-y: scroll;*/
     }
     .filter-col {
       max-height: $elem-height;

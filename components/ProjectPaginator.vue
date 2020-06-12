@@ -32,7 +32,7 @@
     </v-container>
 
     <!-- Projects -->
-    <v-container fluid>
+    <v-container class="projects-container" fluid>
       <v-row>
         <v-col :cols="12 / xsCols" :md="12 / mdCols" v-for="project in projects" :key="project.uuid">
           <ProjectCard
@@ -104,6 +104,17 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  @import "~vuetify/src/styles/styles";
+
+  // Desktop
+  @media #{map-get($display-breakpoints, 'md-and-up')} {
+    // Add scrollbars to filter and project columns
+    $elem-height: calc(100vh - 280px);
+    .projects-container {
+      max-height: $elem-height;
+      overflow-y: auto;
+    }
+  }
 
 </style>

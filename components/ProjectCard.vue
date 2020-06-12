@@ -128,7 +128,7 @@
     transition: transform 0.2s;
   }
   .project-card:hover {
-    transform: scale(1.08);
+    transform: scale(1.05);
     transition: transform 0.2s;
     cursor: pointer;
   }
