@@ -41,6 +41,11 @@
             :show-frameworks="showFrameworks"
             :show-technologies="showTechnologies"
             :show-tags="showTags"
+
+            @languageclick="$emit('languageclick', $event)"
+            @frameworkclick="$emit('frameworkclick', $event)"
+            @technologyclick="$emit('technologyclick', $event)"
+            @tagclick="$emit('tagclick', $event)"
           />
         </v-col>
       </v-row>

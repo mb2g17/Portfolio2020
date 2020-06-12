@@ -59,6 +59,10 @@
             :show-tags="filteredTags !== null"
 
             @togglefilter="onToggleFilter"
+            @languageclick="onProjectChipClick($event, filteredLanguages)"
+            @frameworkclick="onProjectChipClick($event, filteredFrameworks)"
+            @technologyclick="onProjectChipClick($event, filteredTechnologies)"
+            @tagclick="onProjectChipClick($event, filteredTags)"
           />
         </v-col>
       </v-row>
@@ -189,6 +193,24 @@
      */
     private onToggleFilter() {
       this.filterShow = !this.filterShow;
+    }
+
+    /**
+     * When the user clicks on a project chip
+     * @param uuid - the uuid of the clicked value
+     * @param filter - the filter array to mutate
+     */
+    private onProjectChipClick(uuid: string, filter: string[] | null) {
+      // If attribute is disabled, re-enable it
+      if (filter === null)
+        filter = [uuid];
+
+      // If value is already filtered, unfilter it
+      else if (filter.includes(uuid))
+        filter.splice(filter.indexOf(uuid), 1);
+      // Filter it
+      else
+        filter.push(uuid);
     }
   }
 </script>

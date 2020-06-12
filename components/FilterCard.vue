@@ -29,7 +29,17 @@
     <v-expand-transition>
       <v-card-text v-show="showChips">
         <v-chip-group column multiple v-model="selectedUuidIndexes">
-          <v-chip filter :color="colour" v-for="story in store.uuids" :key="story">{{ store.find(story).name }}</v-chip>
+
+          <v-chip
+            filter
+            :color="colour"
+
+            v-for="story in store.uuids"
+            :key="story"
+          >
+            {{ store.find(story).name }}
+          </v-chip>
+
         </v-chip-group>
       </v-card-text>
     </v-expand-transition>
@@ -53,15 +63,15 @@
     /** Title of the filter card */
     @Prop(String) title!: string;
 
-    /** If true, chips are shown */
-    private showChips: boolean = false;
-
     /** The attribute value UUIDs to filter.
      * If empty list, no values are filtered, so show everything.
      * If null, this attribute is disabled and should be hidden.
      */
     @Prop({default: () => [], type: Array})
     private value!: string[] | null;
+
+    /** If true, chips are shown */
+    private showChips: boolean = false;
 
     /** Indexes of UUIDs that are selected */
     private selectedUuidIndexes: number[] = [];
@@ -76,6 +86,46 @@
       return this.selectedUuidIndexes.map(i => this.store.uuids[i]);
     }
 
+    /**
+     * When attribute value UUIDs to filter changes.
+     * This usually happens when project card chip is clicked.
+     */
+    @Watch('value')
+    private onValueChange(newValue: string[] | null, oldValue: string[] | null) {
+      // If value isn't null
+      if (newValue === null)
+        return;
+
+      // Converts value to id array
+      const valueID = newValue.map(uuid => this.store.uuids.indexOf(uuid));
+
+      // Checks if value and selectedUuidIndexes are equal
+      const valueIDSet = new Set(valueID);
+      const selectedUuidIndexesSet = new Set(this.selectedUuidIndexes);
+      let equal: boolean = true;
+
+      if (valueIDSet.size !== selectedUuidIndexesSet.size) {
+        equal = false;
+      } else {
+        for (const val of valueIDSet) {
+          if (!selectedUuidIndexesSet.has(val)) {
+            equal = true;
+          }
+        }
+      }
+
+      // If they are not equal, update and return
+      if (!equal) {
+        this.selectedUuidIndexes = valueID;
+        return;
+      }
+    }
+
+    /**
+     * When user clicks on a value to filter by
+     * @param newUuids - new list of uuids
+     * @param oldUuids - old list of uuids
+     */
     @Watch('selectedUuids')
     private onSelectedUuidsChange(newUuids: string[], oldUuids: string[]) {
       // If this attribute is enabled, update value
