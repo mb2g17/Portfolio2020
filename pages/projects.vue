@@ -5,7 +5,7 @@
 
       <v-row>
         <!-- Filter row -->
-        <v-col :cols="3" v-show="filterShow">
+        <v-col :cols="12" md="3" v-show="filterShow">
           <v-row>
             <v-col :cols="12">
 
@@ -32,12 +32,13 @@
         </v-col>
 
         <!-- Projects row -->
-        <v-col :cols="filterShow ? 9 : 12">
+        <v-col cols="12" :md="filterShow ? 9 : 12">
 
           <ProjectPaginator
             :projects="projects"
             :total="total"
-            :cols="filterShow ? 3 : 4"
+            :xs-cols="1"
+            :md-cols="filterShow ? 3 : 4"
             @pagechange="onPageChange"
             @togglefilter="onToggleFilter"
           />

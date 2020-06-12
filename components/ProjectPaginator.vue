@@ -3,23 +3,27 @@
   <v-container>
 
     <!-- Header -->
-    <v-container class="d-flex">
-      <!-- Toggle filter button -->
-      <v-btn
-        outlined
-        @click="$emit('togglefilter')"
-      >Toggle filter</v-btn>
+    <v-row>
+      <v-col cols="12" md="6" class="d-flex justify-center justify-md-start">
+        <!-- Toggle filter button -->
+        <v-btn
+          outlined
+          @click="$emit('togglefilter')"
+        >Toggle filter</v-btn>
+      </v-col>
 
-      <!-- Pagination -->
-      <v-pagination
-        v-model="page"
-        :length="Math.ceil(total / 12)"
-      >
-      </v-pagination>
-    </v-container>
+      <v-col cols="12" md="6">
+        <!-- Pagination -->
+        <v-pagination
+          v-model="page"
+          :length="Math.ceil(total / 12)"
+        >
+        </v-pagination>
+      </v-col>
+    </v-row>
 
     <!-- Loading animation -->
-    <v-container class="d-flex justify-center" v-if="loading">
+    <v-container class="d-flex justify-center" v-if="false">
       <v-progress-circular
         :size="100"
         indeterminate
@@ -30,7 +34,7 @@
     <!-- Projects -->
     <v-container fluid>
       <v-row>
-        <v-col :cols="12 / cols" v-for="project in projects" :key="project.uuid">
+        <v-col :cols="12 / xsCols" :md="12 / mdCols" v-for="project in projects" :key="project.uuid">
           <ProjectCard :project="project" />
         </v-col>
       </v-row>
@@ -57,8 +61,11 @@
     /** The total number of projects there are */
     @Prop(Number) total!: number;
 
-    /** How many columns should there be */
-    @Prop({default: 4, type: Number}) cols!: number;
+    /** How many columns should there be on desktop */
+    @Prop({default: 4, type: Number}) mdCols!: number;
+
+    /** How many columns should there be on mobile */
+    @Prop({default: 4, type: Number}) xsCols!: number;
 
     /** If true, loading animation is displayed */
     private loading: boolean = false;
