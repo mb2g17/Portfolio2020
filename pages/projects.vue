@@ -182,7 +182,6 @@
      */
     @Watch('page')
     private async onPageChange(newPage: number, oldPage: number) {
-      console.log("Page changed: " + this.page);
       // Loads new page of projects
       await this.loadProjects();
     }

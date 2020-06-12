@@ -90,11 +90,11 @@
     /** If true, tag chips are shown */
     @Prop({default: true, type: Boolean}) showTags!: boolean;
 
+    /** The page number we're on */
+    @Prop(Number) value: number = 1;
+
     /** If true, loading animation is displayed */
     private loading: boolean = false;
-
-    /** The page number we're on */
-    private value: number = 1;
 
     /**
      * Scrolls the project container back to the top
