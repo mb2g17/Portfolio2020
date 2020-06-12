@@ -4,8 +4,8 @@
       <h1>Projects</h1>
 
       <v-row>
-        <!-- Filter row -->
-        <v-col :cols="12" md="3" v-show="filterShow">
+        <!-- Filter column -->
+        <v-col class="filter-col" :cols="12" md="3" v-show="filterShow">
           <v-row>
             <v-col :cols="12">
               <FilterCard
@@ -43,8 +43,8 @@
           </v-row>
         </v-col>
 
-        <!-- Projects row -->
-        <v-col cols="12" :md="filterShow ? 9 : 12">
+        <!-- Projects column -->
+        <v-col class="projects-col" cols="12" :md="filterShow ? 9 : 12">
           <ProjectPaginator
             v-model="page"
 
@@ -192,3 +192,48 @@
     }
   }
 </script>
+
+<style lang="scss">
+  @import "~vuetify/src/styles/styles";
+
+  // Desktop
+  @media #{map-get($display-breakpoints, 'md-and-up')} {
+    // Hide main scrollbar
+    html, body {
+      overflow-y: hidden;
+    }
+
+    // Add scrollbars to filter and project columns
+    $elem-height: calc(100vh - 180px);
+    .projects-col {
+      height: $elem-height;
+      overflow-y: scroll;
+    }
+    .filter-col {
+      max-height: $elem-height;
+      overflow-y: auto;
+    }
+  }
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #222;
+    border-radius: 6px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 6px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+</style>
