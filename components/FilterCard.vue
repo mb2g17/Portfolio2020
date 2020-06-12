@@ -6,7 +6,7 @@
       flat
       dark
       class="filtercard-toolbar"
-      :color="`${colour} darken-4`"
+      :color="`${attributeEnabled ? colour : 'grey'} darken-4`"
       @click="onToolbarClick"
     >
       <!-- Title -->
