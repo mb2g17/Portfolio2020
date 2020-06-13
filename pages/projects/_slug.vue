@@ -41,49 +41,77 @@
             <!-- Chips -->
             <template v-if="project.languages.length > 0">
               <h3 class="mb-1">Languages</h3>
-              <v-chip
-                class="animate-chip mr-1 mb-2"
-                color="red"
-                v-for="language in project.languages"
-                :key="language"
-                @click="$emit('languagechipclick', language)"
-              >{{ languageStore.find(language).name }}</v-chip>
+              <v-chip-group column multiple :value="filteredLanguages">
+                <v-chip
+                  filter
+                  class="animate-chip mr-1 mb-2"
+                  color="red"
+
+                  v-for="language in project.languages"
+                  :key="language"
+                  :value="language"
+
+                  @click="$emit('languagechipclick', language)"
+                >
+                  {{ languageStore.find(language).name }}
+                </v-chip>
+              </v-chip-group>
               <v-divider class="my-2"></v-divider>
             </template>
 
             <template v-if="project.frameworks.length > 0">
               <h3 class="mb-1">Frameworks</h3>
-              <v-chip
-                class="animate-chip mr-1 mb-2"
-                color="blue"
-                v-for="framework in project.frameworks"
-                :key="framework"
-                @click="$emit('frameworkchipclick', framework)"
-              >{{ frameworkStore.find(framework).name }}</v-chip>
+              <v-chip-group column multiple :value="filteredFrameworks">
+                <v-chip
+                  filter
+                  class="animate-chip mr-1 mb-2"
+                  color="blue"
+
+                  v-for="framework in project.frameworks"
+                  :key="framework"
+                  :value="framework"
+
+                  @click="$emit('frameworkchipclick', framework)"
+                >
+                  {{ frameworkStore.find(framework).name }}
+                </v-chip>
+              </v-chip-group>
               <v-divider class="my-2"></v-divider>
             </template>
 
             <template v-if="project.technologies.length > 0">
               <h3 class="mb-1">Technologies</h3>
-              <v-chip
-                class="animate-chip mr-1 mb-2"
-                color="green"
-                v-for="technology in project.technologies"
-                :key="technology"
-                @click="$emit('technologychipclick', technology)"
-              >{{ technologyStore.find(technology).name }}</v-chip>
+              <v-chip-group column multiple :value="filteredTechnologies">
+                <v-chip
+                  filter
+                  class="animate-chip mr-1 mb-2"
+                  color="green"
+
+                  v-for="technology in project.technologies"
+                  :key="technology"
+                  :value="technology"
+
+                  @click="$emit('technologychipclick', technology)"
+                >{{ technologyStore.find(technology).name }}</v-chip>
+              </v-chip-group>
               <v-divider class="my-2"></v-divider>
             </template>
 
             <template v-if="project.tags.length > 0">
               <h3 class="mb-1">Tags</h3>
-              <v-chip
-                class="animate-chip mr-1 mb-2"
-                color="purple"
-                v-for="tag in project.tags"
-                :key="tag"
-                @click="$emit('tagchipclick', tag)"
-              >{{ tagStore.find(tag).name }}</v-chip>
+              <v-chip-group column multiple :value="filteredTags">
+                <v-chip
+                  filter
+                  class="animate-chip mr-1 mb-2"
+                  color="purple"
+
+                  v-for="tag in project.tags"
+                  :key="tag"
+                  :value="tag"
+
+                  @click="$emit('tagchipclick', tag)"
+                >{{ tagStore.find(tag).name }}</v-chip>
+              </v-chip-group>
             </template>
 
           </v-col>
@@ -128,7 +156,7 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from "nuxt-property-decorator";
+  import {Component, Prop, Vue} from "nuxt-property-decorator";
   import Project from "~/plugins/api/components/Project";
   import { Context } from "@nuxt/types";
   import {languageStore, frameworkStore, technologyStore, tagStore} from "~/utils/store/store-accessor";
@@ -146,6 +174,18 @@
     private frameworkStore = frameworkStore;
     private technologyStore = technologyStore;
     private tagStore = tagStore;
+
+    /** A list of languages uuids to filter */
+    @Prop({default: null}) filteredLanguages!: string[] | null;
+
+    /** A list of framework uuids to filter */
+    @Prop({default: null}) filteredFrameworks!: string[] | null;
+
+    /** A list of technology uuids to filter */
+    @Prop({default: null}) filteredTechnologies!: string[] | null;
+
+    /** A list of tag uuids to filter */
+    @Prop({default: null}) filteredTags!: string[] | null;
 
     /** If true, modal is open */
     private open: boolean = true;

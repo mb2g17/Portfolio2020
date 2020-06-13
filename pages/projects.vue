@@ -4,6 +4,11 @@
     <h1>Projects</h1>
 
     <nuxt-child
+      :filtered-languages="filteredLanguages"
+      :filtered-frameworks="filteredFrameworks"
+      :filtered-technologies="filteredTechnologies"
+      :filtered-tags="filteredTags"
+
       @languagechipclick="onProjectChipClick($event, filteredLanguages)"
       @frameworkchipclick="onProjectChipClick($event, filteredFrameworks)"
       @technologychipclick="onProjectChipClick($event, filteredTechnologies)"
@@ -59,10 +64,10 @@
           :xs-cols="1"
           :md-cols="filterShow ? 3 : 4"
 
-          :show-languages="filteredLanguages !== null"
-          :show-frameworks="filteredFrameworks !== null"
-          :show-technologies="filteredTechnologies !== null"
-          :show-tags="filteredTags !== null"
+          :filtered-languages="filteredLanguages"
+          :filtered-frameworks="filteredFrameworks"
+          :filtered-technologies="filteredTechnologies"
+          :filtered-tags="filteredTags"
 
           @togglefilter="onToggleFilter"
           @languageclick="onProjectChipClick($event, filteredLanguages)"

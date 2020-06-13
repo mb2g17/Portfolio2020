@@ -37,10 +37,11 @@
         <v-col :cols="12 / xsCols" :md="12 / mdCols" v-for="project in projects" :key="project.uuid">
           <ProjectCard
             :project="project"
-            :show-languages="showLanguages"
-            :show-frameworks="showFrameworks"
-            :show-technologies="showTechnologies"
-            :show-tags="showTags"
+
+            :filtered-languages="filteredLanguages"
+            :filtered-frameworks="filteredFrameworks"
+            :filtered-technologies="filteredTechnologies"
+            :filtered-tags="filteredTags"
 
             @languageclick="$emit('languageclick', $event)"
             @frameworkclick="$emit('frameworkclick', $event)"
@@ -78,17 +79,17 @@
     /** How many columns should there be on mobile */
     @Prop({default: 4, type: Number}) xsCols!: number;
 
-    /** If true, language chips are shown */
-    @Prop({default: true, type: Boolean}) showLanguages!: boolean;
+    /** A list of languages uuids to filter */
+    @Prop({required: true}) filteredLanguages!: string[] | null;
 
-    /** If true, framework chips are shown */
-    @Prop({default: true, type: Boolean}) showFrameworks!: boolean;
+    /** A list of framework uuids to filter */
+    @Prop({required: true}) filteredFrameworks!: string[] | null;
 
-    /** If true, technology chips are shown */
-    @Prop({default: true, type: Boolean}) showTechnologies!: boolean;
+    /** A list of technology uuids to filter */
+    @Prop({required: true}) filteredTechnologies!: string[] | null;
 
-    /** If true, tag chips are shown */
-    @Prop({default: true, type: Boolean}) showTags!: boolean;
+    /** A list of tag uuids to filter */
+    @Prop({required: true}) filteredTags!: string[] | null;
 
     /** The page number we're on */
     @Prop(Number) value: number = 1;

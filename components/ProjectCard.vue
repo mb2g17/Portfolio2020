@@ -26,69 +26,82 @@
       <v-divider class="mx-4"></v-divider>
       <v-card-text>
 
-        <!-- Languages -->
-        <v-chip
-          color="red"
-          class="animate-chip mr-1 mb-2"
-          v-if="showLanguages"
-
-          v-for="language in project.languages"
-          :key="language"
-
-          @mousedown.stop=""
-          @touchstart.stop=""
-          @click.stop="$emit('languageclick', language)"
+        <v-chip-group
+          column multiple
+          :value="filterUnion"
         >
-          {{ languageStore.find(language).name }}
-        </v-chip>
+          <!-- Languages -->
+          <v-chip
+            filter
+            color="red"
+            class="animate-chip mr-1 mb-2"
+            v-if="showLanguages"
 
-        <!-- Frameworks -->
-        <v-chip
-          color="blue"
-          class="animate-chip mr-1 mb-2"
-          v-if="showFrameworks"
+            v-for="language in project.languages"
+            :key="language"
+            :value="language"
 
-          v-for="framework in project.frameworks"
-          :key="framework"
+            @mousedown.stop=""
+            @touchstart.stop=""
+            @click.stop="$emit('languageclick', language)"
+          >
+            {{ languageStore.find(language).name }}
+          </v-chip>
 
-          @mousedown.stop=""
-          @touchstart.stop=""
-          @click.stop="$emit('frameworkclick', framework)"
-        >
-          {{ frameworkStore.find(framework).name }}
-        </v-chip>
+          <!-- Frameworks -->
+          <v-chip
+            filter
+            color="blue"
+            class="animate-chip mr-1 mb-2"
+            v-if="showFrameworks"
 
-        <!-- Technologies -->
-        <v-chip
-          color="green"
-          class="animate-chip mr-1 mb-2"
-          v-if="showTechnologies"
+            v-for="framework in project.frameworks"
+            :key="framework"
+            :value="framework"
 
-          v-for="technology in project.technologies"
-          :key="technology"
+            @mousedown.stop=""
+            @touchstart.stop=""
+            @click.stop="$emit('frameworkclick', framework)"
+          >
+            {{ frameworkStore.find(framework).name }}
+          </v-chip>
 
-          @mousedown.stop=""
-          @touchstart.stop=""
-          @click.stop="$emit('technologyclick', technology)"
-        >
-          {{ technologyStore.find(technology).name }}
-        </v-chip>
+          <!-- Technologies -->
+          <v-chip
+            filter
+            color="green"
+            class="animate-chip mr-1 mb-2"
+            v-if="showTechnologies"
 
-        <!-- Tags -->
-        <v-chip
-          color="purple"
-          class="animate-chip mr-1 mb-2"
-          v-if="showTags"
+            v-for="technology in project.technologies"
+            :key="technology"
+            :value="technology"
 
-          v-for="tag in project.tags"
-          :key="tag"
+            @mousedown.stop=""
+            @touchstart.stop=""
+            @click.stop="$emit('technologyclick', technology)"
+          >
+            {{ technologyStore.find(technology).name }}
+          </v-chip>
 
-          @mousedown.stop=""
-          @touchstart.stop=""
-          @click.stop="$emit('tagclick', tag)"
-        >
-          {{ tagStore.find(tag).name }}
-        </v-chip>
+          <!-- Tags -->
+          <v-chip
+            filter
+            color="purple"
+            class="animate-chip mr-1 mb-2"
+            v-if="showTags"
+
+            v-for="tag in project.tags"
+            :key="tag"
+            :value="tag"
+
+            @mousedown.stop=""
+            @touchstart.stop=""
+            @click.stop="$emit('tagclick', tag)"
+          >
+            {{ tagStore.find(tag).name }}
+          </v-chip>
+        </v-chip-group>
 
       </v-card-text>
     </template>
@@ -113,17 +126,50 @@
     /** Project that we are displaying */
     @Prop(Object) project!: Project;
 
+    /** A list of languages uuids to filter */
+    @Prop({default: null}) filteredLanguages!: string[] | null;
+
+    /** A list of framework uuids to filter */
+    @Prop({default: null}) filteredFrameworks!: string[] | null;
+
+    /** A list of technology uuids to filter */
+    @Prop({default: null}) filteredTechnologies!: string[] | null;
+
+    /** A list of tag uuids to filter */
+    @Prop({default: null}) filteredTags!: string[] | null;
+
     /** If true, language chips are shown */
-    @Prop({default: true, type: Boolean}) showLanguages!: boolean;
+    private get showLanguages(): boolean {
+      return this.filteredLanguages !== null;
+    }
 
     /** If true, framework chips are shown */
-    @Prop({default: true, type: Boolean}) showFrameworks!: boolean;
+    private get showFrameworks(): boolean {
+      return this.filteredFrameworks !== null;
+    }
 
     /** If true, technology chips are shown */
-    @Prop({default: true, type: Boolean}) showTechnologies!: boolean;
+    private get showTechnologies(): boolean {
+      return this.filteredTechnologies !== null;
+    }
 
     /** If true, tag chips are shown */
-    @Prop({default: true, type: Boolean}) showTags!: boolean;
+    private get showTags(): boolean {
+      return this.filteredTags !== null;
+    }
+
+    private get filterUnion(): string[] {
+      let rv: string[] = [];
+      if (this.filteredLanguages)
+        rv = rv.concat(this.filteredLanguages);
+      if (this.filteredFrameworks)
+        rv = rv.concat(this.filteredFrameworks);
+      if (this.filteredTechnologies)
+        rv = rv.concat(this.filteredTechnologies);
+      if (this.filteredTags)
+        rv = rv.concat(this.filteredTags);
+      return rv;
+    }
 
     /**
      * If true, we should show chips. If false, we should hide chips.
