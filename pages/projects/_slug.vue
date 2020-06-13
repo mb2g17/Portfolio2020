@@ -23,7 +23,7 @@
           </v-col>
 
           <!-- Date of completion -->
-          <v-col cols="3" class="text-right subtitle-2">{{ project.dateOfCompletion }}</v-col>
+          <v-col cols="3" class="text-right subtitle-2">{{ dateOfCompletion }}</v-col>
 
         </v-row>
       </v-card-title>
@@ -152,6 +152,16 @@
 
     /** Project we are displaying */
     private project!: Project;
+
+    /**
+     * Returns formatted date in the project property
+     */
+    private get dateOfCompletion(): string {
+      const date = new Date(this.project.dateOfCompletion);
+      return this.$vuetify.breakpoint.smAndDown ?
+        date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate() :
+        date.toDateString();
+    }
 
     /**
      * When user tries to exit the dialog
