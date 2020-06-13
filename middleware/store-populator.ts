@@ -1,6 +1,6 @@
 import { Middleware, Context } from "@nuxt/types";
 import { frameworkStore, languageStore, tagStore, technologyStore } from "~/utils/store/store-accessor";
-import { ApiFunction } from "~/plugins/api/function";
+import { getStories } from "~/plugins/api/function";
 import MappingModule from "~/utils/store/MappingModule";
 import Story from "~/plugins/api/components/Story";
 
@@ -23,7 +23,7 @@ const storePopulator: Middleware = async (context: Context) => {
     const [storyName, store] = storyType;
 
     // Gets all the stories and store
-    const stories: Story[] = await ApiFunction(context.$axios, {
+    const stories: Story[] = await getStories({
       "starts_with": storyName
     }) as Story[];
 

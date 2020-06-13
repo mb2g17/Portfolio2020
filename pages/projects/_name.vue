@@ -10,9 +10,9 @@
       <v-card-title
         class="headline green darken-4"
         primary-title
-      >{{ project.name }}</v-card-title>
+      >{{ "project.name" }}</v-card-title>
 
-      <v-card-text>{{ project.description }}</v-card-text>
+      <v-card-text>{{ "project.description" }}</v-card-text>
 
       <v-card-actions>
         <v-btn color="red">Demo</v-btn>
@@ -32,13 +32,16 @@
 
   @Component({
     async asyncData(ctx: Context) {
+      ctx.app.$testplugin.hello();
+      ctx.app.$testplugin.goodbye();
+      ctx.app.$testplugin.both();
+
       // Gets project
-      return {
-        project: await ctx.app.$api(ctx.$axios, {
-          "starts_with": "project",
-          "filter_query[name][in]": ctx.route.params.name
-        })
-      };
+      /*return {
+        project: await ctx.app.$api(ctx.$axios, {}, false,
+          "/projects/yoshi-vs-windows-unity-edition"
+        )
+      };*/
     }
   })
   export default class ProjectsName extends Vue {

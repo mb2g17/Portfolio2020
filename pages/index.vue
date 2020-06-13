@@ -22,7 +22,7 @@
 
   @Component({
     async asyncData(context: Context) {
-      const result = await context.app.$api(context.$axios, {
+      const result = await context.app.$api.getStories({
         "starts_with": "projects",
         "filter_query[starred][is]": "true"
       });

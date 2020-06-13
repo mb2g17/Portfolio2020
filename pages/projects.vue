@@ -88,7 +88,7 @@
       ProjectPaginator, FilterCard
     },
     async asyncData(ctx: Context) {
-      const [projects, headers]: [Project[], any] = await ctx.app.$api(ctx.$axios, {
+      const [projects, headers]: [Project[], any] = await ctx.app.$api.getStories({
         "starts_with": "project",
         "sort_by": "content.date_of_completion:desc",
         "page": 1,
@@ -157,7 +157,7 @@
       }
 
       // Request projects page
-      const response: [Project[], any] = await this.$api(this.$axios, queryParams, true) as [Project[], any];
+      const response: [Project[], any] = await this.$api.getStories(queryParams, true) as [Project[], any];
       const [projects, headers] = response;
 
       // Updates total

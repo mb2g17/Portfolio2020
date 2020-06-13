@@ -18,7 +18,7 @@
   @Component({
     async asyncData(ctx: Context) {
       // Fetches changes
-      const stories = await ctx.app.$api(ctx.$axios, {
+      const stories = await ctx.app.$api.getStories({
         "starts_with": "changelog"
       });
 

@@ -7,16 +7,21 @@ import Language from "~/plugins/api/components/Language";
 import Tag from "~/plugins/api/components/Tag";
 import Technology from "~/plugins/api/components/Technology";
 import { spaceVersionModule } from "~/utils/store/store-accessor";
+import axios from "axios";
 
 /**
- * API plugin function type
+ * Interface of the API plugin
  */
-export type ApiFunctionType = (axios: NuxtAxiosInstance, options?: any, headers?: boolean) => Promise<Story[] | [Story[], any] | undefined>;
+export interface ApiPluginInterface {
+  /**
+   * Gets multiple stories
+   * @param options - extra query parameters
+   * @param headers - if true, return value will be [array of stories, header response object]
+   */
+  getStories: (options?: any, headers?: boolean) => Promise<Story[] | [Story[], any] | undefined>;
+}
 
-/**
- * Function of API plugin
- */
-export const ApiFunction: ApiFunctionType = async (axios: NuxtAxiosInstance, options?: any, headers?: boolean) => {
+export const getStories = async (options?: any, headers?: boolean) => {
   // Gets environment variables
   const api = process.env.API;
   const versionApi = process.env.VERSION_API;

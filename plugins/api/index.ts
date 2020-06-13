@@ -1,30 +1,30 @@
 import { Plugin } from "@nuxt/types";
-import {ApiFunction, ApiFunctionType} from "./function";
+import * as ApiPlugin from "./function";
 
 // Declares plugin in client
 declare module 'vue/types/vue' {
   interface Vue {
-    $api: ApiFunctionType
+    $api: ApiPlugin.ApiPluginInterface
   }
 }
 
 // Declares plugin in server
 declare module '@nuxt/types' {
   interface NuxtAppOptions {
-    $api: ApiFunctionType
+    $api: ApiPlugin.ApiPluginInterface
   }
 }
 
 // Declares plugin in vuex store
 declare module 'vuex/types/index' {
   interface Store<S> {
-    $api: ApiFunctionType
+    $api: ApiPlugin.ApiPluginInterface
   }
 }
 
 // Injects plugin into nuxt
 const apiPlugin: Plugin = (context, inject) => {
-  inject('api', ApiFunction);
+  inject('api', { ...ApiPlugin });
 };
 
 export default apiPlugin;
