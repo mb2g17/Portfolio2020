@@ -14,6 +14,14 @@ import axios from "axios";
  */
 export interface ApiPluginInterface {
   /**
+   * Gets one story based on slug
+   * @param fullSlug - the full slug of the story to get
+   * @param options - extra query parameters
+   * @param headers if true, return value will be [story, header response object]
+   */
+  getStory: (fullSlug: string, options?: any, headers?: boolean) => Promise<Story | [Story, any] | undefined>;
+
+  /**
    * Gets multiple stories
    * @param options - extra query parameters
    * @param headers - if true, return value will be [array of stories, header response object]
@@ -21,27 +29,52 @@ export interface ApiPluginInterface {
   getStories: (options?: any, headers?: boolean) => Promise<Story[] | [Story[], any] | undefined>;
 }
 
-export const getStories = async (options?: any, headers?: boolean) => {
-  // Gets environment variables
-  const api = process.env.API;
-  const versionApi = process.env.VERSION_API;
-  const token = process.env.TOKEN;
+// Environment variables
+const api = process.env.API;
+const versionApi = process.env.VERSION_API;
+const token = process.env.TOKEN;
 
+export const getStory: ApiPluginInterface["getStory"] = async(fullSlug: string, options?: any, headers?: boolean) => {
   // Guard: if we don't have our variables
-  if (!api || !token || !versionApi) {
+  if (!api || !token) {
     throw Error("Environment variables not set up correctly.");
   }
 
-  // If we haven't fetched a space version
-  if (!spaceVersionModule.isVersionUpdated) {
-    // Gets the newest space version
-    const spaceVersionResponse = await axios.get(versionApi, {
-      params: { token }
-    });
+  // Updates space version, if it needs it
+  await updateSpaceVersion();
 
-    // Updates store with this version
-    spaceVersionModule.updateVersion(spaceVersionResponse.data.space.version);
+  // Parses our request
+  const response = await axios.get(`${api}/${fullSlug}`, {
+    params: {
+      ...options,
+      token,
+      version: "published",
+      versions: spaceVersionModule.version
+    },
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+
+  // Creates our story
+  const story: Story = toStory(response.data.story);
+
+  // If user wants headers, give them, if not, just return stories
+  if (headers)
+    return [story, response.headers];
+  else
+    return story;
+}
+
+export const getStories: ApiPluginInterface["getStories"] = async (options?: any, headers?: boolean) => {
+  // Guard: if we don't have our variables
+  if (!api || !token) {
+    throw Error("Environment variables not set up correctly.");
   }
+
+  // Updates space version, if it needs it
+  await updateSpaceVersion();
 
   // Parses our request
   const response = await axios.get(api, {
@@ -58,35 +91,7 @@ export const getStories = async (options?: any, headers?: boolean) => {
   });
 
   // Creates our story array
-  const stories: Story[] = [];
-
-  // Goes through all the stories
-  for (const story of response.data.stories) {
-    // Creates story based on component type
-    switch (story.content.component)
-    {
-      case "project":
-        stories.push(new Project(story));
-        break;
-      case "change":
-        stories.push(new Change(story));
-        break;
-      case "framework":
-        stories.push(new Framework(story));
-        break;
-      case "language":
-        stories.push(new Language(story));
-        break;
-      case "tag":
-        stories.push(new Tag(story));
-        break;
-      case "technology":
-        stories.push(new Technology(story));
-        break;
-      default:
-        throw Error(`Unrecognised component '${story.content.component}' on story '${story.full_slug}'.`);
-    }
-  }
+  const stories: Story[] = response.data.stories.map((story: any) => toStory(story));
 
   // If user wants headers, give them, if not, just return stories
   if (headers)
@@ -94,3 +99,49 @@ export const getStories = async (options?: any, headers?: boolean) => {
   else
     return stories;
 };
+
+/**
+ * Converts raw story JSON to story class instances
+ * @param rawStory - the raw JSON story
+ */
+const toStory = (rawStory: any): Story => {
+  // Creates story based on component type
+  switch (rawStory.content.component)
+  {
+    case "project":
+      return new Project(rawStory);
+    case "change":
+      return new Change(rawStory);
+    case "framework":
+      return new Framework(rawStory);
+    case "language":
+      return new Language(rawStory);
+    case "tag":
+      return new Tag(rawStory);
+    case "technology":
+      return new Technology(rawStory);
+    default:
+      throw Error(`Unrecognised component '${rawStory.content.component}' on story '${rawStory.full_slug}'.`);
+  }
+};
+
+/**
+ * Updates space version in space version store, if it needs it
+ */
+const updateSpaceVersion = async () => {
+  // Guard: if we don't have our variables
+  if (!token || !versionApi) {
+    throw Error("Environment variables not set up correctly.");
+  }
+
+  // If we haven't fetched a space version
+  if (!spaceVersionModule.isVersionUpdated) {
+    // Gets the newest space version
+    const spaceVersionResponse = await axios.get(versionApi, {
+      params: { token }
+    });
+
+    // Updates store with this version
+    spaceVersionModule.updateVersion(spaceVersionResponse.data.space.version);
+  }
+}

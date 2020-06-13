@@ -129,7 +129,7 @@
      */
     private onCardClick() {
       this.$router.push({
-        path: `/projects/${this.project.name}`
+        path: `/projects/${this.project.slug}`
       });
     }
   }
