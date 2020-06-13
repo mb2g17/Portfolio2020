@@ -24,7 +24,7 @@
     <!-- Chips -->
     <template v-if="shouldShowChips">
       <v-divider class="mx-4"></v-divider>
-      <v-card-text>
+      <v-card-text class="py-2">
 
         <v-chip-group
           column multiple
