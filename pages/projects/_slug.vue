@@ -42,9 +42,11 @@
             <template v-if="project.languages.length > 0">
               <h3 class="mb-1">Languages</h3>
               <v-chip
+                class="animate-chip mr-1 mb-2"
                 color="red"
                 v-for="language in project.languages"
                 :key="language"
+                @click="$emit('languagechipclick', language)"
               >{{ languageStore.find(language).name }}</v-chip>
               <v-divider class="my-2"></v-divider>
             </template>
@@ -52,9 +54,11 @@
             <template v-if="project.frameworks.length > 0">
               <h3 class="mb-1">Frameworks</h3>
               <v-chip
+                class="animate-chip mr-1 mb-2"
                 color="blue"
                 v-for="framework in project.frameworks"
                 :key="framework"
+                @click="$emit('frameworkchipclick', framework)"
               >{{ frameworkStore.find(framework).name }}</v-chip>
               <v-divider class="my-2"></v-divider>
             </template>
@@ -62,9 +66,11 @@
             <template v-if="project.technologies.length > 0">
               <h3 class="mb-1">Technologies</h3>
               <v-chip
+                class="animate-chip mr-1 mb-2"
                 color="green"
                 v-for="technology in project.technologies"
                 :key="technology"
+                @click="$emit('technologychipclick', technology)"
               >{{ technologyStore.find(technology).name }}</v-chip>
               <v-divider class="my-2"></v-divider>
             </template>
@@ -72,9 +78,11 @@
             <template v-if="project.tags.length > 0">
               <h3 class="mb-1">Tags</h3>
               <v-chip
+                class="animate-chip mr-1 mb-2"
                 color="purple"
                 v-for="tag in project.tags"
                 :key="tag"
+                @click="$emit('tagchipclick', tag)"
               >{{ tagStore.find(tag).name }}</v-chip>
             </template>
 
@@ -157,6 +165,7 @@
 </script>
 
 <style scoped lang="scss">
+  @import '~/assets/chip-hover.scss';
   @import "~vuetify/src/styles/styles";
 
   // Desktop

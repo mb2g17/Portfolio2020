@@ -1,0 +1,9 @@
+.animate-chip {
+  transform: scale(1) rotate(0deg);
+  transition: transform 0.2s;
+}
+.animate-chip:hover {
+  transform: scale(1.1) rotate(-2deg);
+  transition: transform 0.2s;
+  cursor: pointer;
+}

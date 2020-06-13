@@ -32,6 +32,7 @@
 
           <v-chip
             filter
+            class="animate-chip"
             :color="colour"
 
             v-for="story in store.uuids"
@@ -177,7 +178,9 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  @import '~/assets/chip-hover.scss';
+
   .filtercard-toolbar:hover {
     cursor: pointer;
   }

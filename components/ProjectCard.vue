@@ -29,12 +29,14 @@
         <!-- Languages -->
         <v-chip
           color="red"
-          class="project-chip mr-1 mb-2"
+          class="animate-chip mr-1 mb-2"
           v-if="showLanguages"
 
           v-for="language in project.languages"
           :key="language"
 
+          @mousedown.stop=""
+          @touchstart.stop=""
           @click.stop="$emit('languageclick', language)"
         >
           {{ languageStore.find(language).name }}
@@ -43,13 +45,15 @@
         <!-- Frameworks -->
         <v-chip
           color="blue"
-          class="project-chip mr-1 mb-2"
+          class="animate-chip mr-1 mb-2"
           v-if="showFrameworks"
 
           v-for="framework in project.frameworks"
           :key="framework"
 
-          @click="$emit('frameworkclick', framework)"
+          @mousedown.stop=""
+          @touchstart.stop=""
+          @click.stop="$emit('frameworkclick', framework)"
         >
           {{ frameworkStore.find(framework).name }}
         </v-chip>
@@ -57,13 +61,15 @@
         <!-- Technologies -->
         <v-chip
           color="green"
-          class="project-chip mr-1 mb-2"
+          class="animate-chip mr-1 mb-2"
           v-if="showTechnologies"
 
           v-for="technology in project.technologies"
           :key="technology"
 
-          @click="$emit('technologyclick', technology)"
+          @mousedown.stop=""
+          @touchstart.stop=""
+          @click.stop="$emit('technologyclick', technology)"
         >
           {{ technologyStore.find(technology).name }}
         </v-chip>
@@ -71,13 +77,15 @@
         <!-- Tags -->
         <v-chip
           color="purple"
-          class="project-chip mr-1 mb-2"
+          class="animate-chip mr-1 mb-2"
           v-if="showTags"
 
           v-for="tag in project.tags"
           :key="tag"
 
-          @click="$emit('tagclick', tag)"
+          @mousedown.stop=""
+          @touchstart.stop=""
+          @click.stop="$emit('tagclick', tag)"
         >
           {{ tagStore.find(tag).name }}
         </v-chip>
@@ -135,23 +143,15 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  @import '~/assets/chip-hover.scss';
+
   .project-card {
     transform: scale(1);
     transition: transform 0.2s;
   }
   .project-card:hover {
     transform: scale(1.05);
-    transition: transform 0.2s;
-    cursor: pointer;
-  }
-
-  .project-chip {
-    transform: scale(1) rotate(0deg);
-    transition: transform 0.2s;
-  }
-  .project-chip:hover {
-    transform: scale(1.1) rotate(-2deg);
     transition: transform 0.2s;
     cursor: pointer;
   }

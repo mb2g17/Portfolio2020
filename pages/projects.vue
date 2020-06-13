@@ -3,7 +3,12 @@
 
     <h1>Projects</h1>
 
-    <nuxt-child />
+    <nuxt-child
+      @languagechipclick="onProjectChipClick($event, filteredLanguages)"
+      @frameworkchipclick="onProjectChipClick($event, filteredFrameworks)"
+      @technologychipclick="onProjectChipClick($event, filteredTechnologies)"
+      @tagchipclick="onProjectChipClick($event, filteredTags)"
+    />
 
     <v-row>
       <!-- Filter column -->
