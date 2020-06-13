@@ -1,70 +1,72 @@
 <template>
   <v-container>
 
-      <h1>Projects</h1>
+    <h1>Projects</h1>
 
-      <v-row>
-        <!-- Filter column -->
-        <v-col class="filter-col" :cols="12" md="3" v-show="filterShow">
-          <v-row>
-            <v-col :cols="12">
-              <FilterCard
-                v-model="filteredLanguages"
-                colour="red"
-                :store="languageStore"
-                title="Languages"
-              />
-            </v-col>
-            <v-col :cols="12">
-              <FilterCard
-                v-model="filteredFrameworks"
-                colour="blue"
-                :store="frameworkStore"
-                title="Frameworks"
-              />
-            </v-col>
-            <v-col :cols="12">
-              <FilterCard
-                v-model="filteredTechnologies"
-                colour="green"
-                :store="technologyStore"
-                title="Technologies"
-              />
-            </v-col>
-            <v-col :cols="12">
-              <FilterCard
-                v-model="filteredTags"
-                colour="purple"
-                :store="tagStore"
-                title="Tags"
-              />
-            </v-col>
-          </v-row>
-        </v-col>
+    <nuxt-child />
 
-        <!-- Projects column -->
-        <v-col class="projects-col pb-0" cols="12" :md="filterShow ? 9 : 12">
-          <ProjectPaginator
-            v-model="page"
+    <v-row>
+      <!-- Filter column -->
+      <v-col class="filter-col" :cols="12" md="3" v-show="filterShow">
+        <v-row>
+          <v-col :cols="12">
+            <FilterCard
+              v-model="filteredLanguages"
+              colour="red"
+              :store="languageStore"
+              title="Languages"
+            />
+          </v-col>
+          <v-col :cols="12">
+            <FilterCard
+              v-model="filteredFrameworks"
+              colour="blue"
+              :store="frameworkStore"
+              title="Frameworks"
+            />
+          </v-col>
+          <v-col :cols="12">
+            <FilterCard
+              v-model="filteredTechnologies"
+              colour="green"
+              :store="technologyStore"
+              title="Technologies"
+            />
+          </v-col>
+          <v-col :cols="12">
+            <FilterCard
+              v-model="filteredTags"
+              colour="purple"
+              :store="tagStore"
+              title="Tags"
+            />
+          </v-col>
+        </v-row>
+      </v-col>
 
-            :projects="projects"
-            :total="total"
-            :xs-cols="1"
-            :md-cols="filterShow ? 3 : 4"
+      <!-- Projects column -->
+      <v-col class="projects-col pb-0" cols="12" :md="filterShow ? 9 : 12">
+        <ProjectPaginator
+          v-model="page"
 
-            :show-languages="filteredLanguages !== null"
-            :show-frameworks="filteredFrameworks !== null"
-            :show-technologies="filteredTechnologies !== null"
-            :show-tags="filteredTags !== null"
+          :projects="projects"
+          :total="total"
+          :xs-cols="1"
+          :md-cols="filterShow ? 3 : 4"
 
-            @togglefilter="onToggleFilter"
-            @languageclick="onProjectChipClick($event, filteredLanguages)"
-            @frameworkclick="onProjectChipClick($event, filteredFrameworks)"
-            @technologyclick="onProjectChipClick($event, filteredTechnologies)"
-            @tagclick="onProjectChipClick($event, filteredTags)"
-          />
-        </v-col>
-      </v-row>
+          :show-languages="filteredLanguages !== null"
+          :show-frameworks="filteredFrameworks !== null"
+          :show-technologies="filteredTechnologies !== null"
+          :show-tags="filteredTags !== null"
+
+          @togglefilter="onToggleFilter"
+          @languageclick="onProjectChipClick($event, filteredLanguages)"
+          @frameworkclick="onProjectChipClick($event, filteredFrameworks)"
+          @technologyclick="onProjectChipClick($event, filteredTechnologies)"
+          @tagclick="onProjectChipClick($event, filteredTags)"
+        />
+      </v-col>
+    </v-row>
 
   </v-container>
 </template>

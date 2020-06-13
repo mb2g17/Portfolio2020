@@ -1,6 +1,9 @@
 <template>
 
-  <v-card class="project-card">
+  <v-card
+    class="project-card"
+    @click="onCardClick"
+  >
     <!-- Banner -->
     <v-img
       contain
@@ -32,7 +35,7 @@
           v-for="language in project.languages"
           :key="language"
 
-          @click="$emit('languageclick', language)"
+          @click.stop="$emit('languageclick', language)"
         >
           {{ languageStore.find(language).name }}
         </v-chip>
@@ -84,6 +87,7 @@
 
   </v-card>
 
+
 </template>
 
 <script lang="ts">
@@ -118,6 +122,15 @@
      */
     private get shouldShowChips(): boolean {
       return this.showLanguages || this.showFrameworks || this.showTechnologies || this.showTags;
+    }
+
+    /**
+     * When user clicks on card
+     */
+    private onCardClick() {
+      this.$router.push({
+        path: `/projects/${this.project.name}`
+      });
     }
   }
 </script>
