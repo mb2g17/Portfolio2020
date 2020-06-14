@@ -20,7 +20,7 @@
         v-else
       ></v-img>
 
-      <h2>My name is Matthew Barnes.</h2>
+      <h2 class="mb-3">My name is Matthew Barnes.</h2>
 
       <p>By the time you read this, I should be <b>{{ age }}</b> years old.</p>
 
