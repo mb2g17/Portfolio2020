@@ -3,14 +3,44 @@
 
     <h1>About Me</h1>
 
-    <v-row>
-      <v-col cols="6">
+    <v-container class="mb-5">
+
+      <!-- Mobile image -->
+      <v-container class="d-flex justify-center" v-if="$vuetify.breakpoint.smAndDown">
+        <v-img
+          class="portrait ma-5"
+          :src="require('~/assets/images/me.jpg')"
+        ></v-img>
+      </v-container>
+
+      <!-- Desktop image -->
+      <v-img
+        class="portrait ma-5"
+        :src="require('~/assets/images/me.jpg')"
+        v-else
+      ></v-img>
+
+      <h2>My name is Matthew Barnes.</h2>
+
+      <p>By the time you read this, I should be <b>{{ age }}</b> years old.</p>
+
+      <p>From a young age, I've been interested in programming. When I was younger, I drew comics and created stories based on those comics. I used to have ideas on making games for those comic series, taking inspiration from video games I played. With that, I soon got around to it when I learned how to use the Game Maker engine at the age of 9.</p>
+
+      <p>After around 2 years of using the Game Maker engine, I moved on to proper programming languages, my first being C. I started off with making command prompt games and utilities.</p>
+
+      <p>Eventually, I sprouted off to other languages such as C++, Java, and C# (in that order). Following this, I started using a broader range of frameworks, libraries, and programming technologies.</p>
+
+      <p>My projects are not the only things I am showcasing; this website was also hand-crafted by yours truly!</p>
+    </v-container>
+
+    <v-row class="clear">
+      <v-col cols="12" md="6">
 
         <h2>Employment</h2>
         <EmploymentCards />
 
       </v-col>
-      <v-col cols="6">
+      <v-col cols="12" md="6">
         <h2 class="mb-3">Education</h2>
 
         <v-expansion-panels>
@@ -23,18 +53,6 @@
         </v-expansion-panels>
       </v-col>
     </v-row>
-
-    <p>My name is Matthew Barnes. By the time you read this, I should be <b>{{ age }}</b> years old.</p>
-
-    <p>From a young age, I've been interested in programming. When I was younger, I used to draw a lot of comics and create stories based on those comics. I've always had ideas on making games for those comic series I made. In addition, I've always wanted to make video games of the same calibre I used to play. With that, I soon got around to it when I learned how to use the Game Maker engine at the age of around 9.</p>
-
-    <p>After around 2 years of using Game Maker to fulfil my thirst for game-making, I started to move on to proper programming languages; my first being C. I started off with making command prompt games and utilities, some of which you can download on this portfolio.</p>
-
-    <p>Eventually, when I sprouted off to other languages such as C++, Java and C# (in that order), I started to get better at making programs and realised my talent for programming. Following this, I started using a broader range of libraries (such as SDL and LibGDX) and programming techniques.</p>
-
-    <p>Despite being heavily inspired by video games to start programming in the first place, I do take pleasure in creating utilities and web applications too; however, making games will always be a great hobby of mine, for nothing would please me greater than to develop and grow the same things that got me into the world of programming in the first place.</p>
-
-    <p>Keep in mind that my projects are not the only things I'm showcasing; I built this website myself, too!</p>
 
   </v-container>
 </template>
@@ -80,3 +98,27 @@
     }
   }
 </script>
+
+<style scoped lang="scss">
+  @import "~vuetify/src/styles/styles";
+
+  .portrait {
+    // Desktop
+    @media #{map-get($display-breakpoints, 'md-and-up')} {
+      border-radius: 10px;
+      float: right;
+      width: 200px;
+      height: auto;
+    }
+    // Phone
+    @media #{map-get($display-breakpoints, 'sm-and-down')} {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+    }
+  }
+
+  .clear {
+    clear:both;
+  }
+</style>
