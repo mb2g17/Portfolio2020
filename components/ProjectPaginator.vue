@@ -125,7 +125,7 @@
   // Desktop
   @media #{map-get($display-breakpoints, 'md-and-up')} {
     // Add scrollbars to projects container
-    $elem-height: calc(100vh - 280px);
+    $elem-height: calc(100vh - 243px);
     .projects-container {
       max-height: $elem-height;
       overflow-y: auto;

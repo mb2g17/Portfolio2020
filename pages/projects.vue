@@ -231,7 +231,7 @@
   // Desktop
   @media #{map-get($display-breakpoints, 'md-and-up')} {
     // Add scrollbars to filter and project columns
-    $elem-height: calc(100vh - 185px);
+    $elem-height: calc(100vh - 150px);
     .projects-col {
       /*height: $elem-height;
       overflow-y: scroll;*/

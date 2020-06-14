@@ -10,7 +10,7 @@
     <Drawer v-model="drawerOpen"/>
 
     <!-- Content -->
-    <v-content>
+    <v-content class="content">
       <nuxt />
     </v-content>
 
@@ -49,18 +49,40 @@
 </script>
 
 <style lang="scss">
+  @import "~vuetify/src/styles/styles";
+
   html, body {
-    overflow-y: auto;
+    overflow: hidden;
   }
 
-  /* width */
+  // Sets up v-content scrollbar
+  @mixin content($header-height) {
+    .content {
+      padding-top: 0 !important;
+      margin-top: $header-height;
+      height: calc(100vh - #{$header-height});
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+  }
+
+  // Desktop
+  @media #{map-get($display-breakpoints, 'md-and-up')} {
+    @include content($header-height: 64px);
+  }
+  // Phone
+  @media #{map-get($display-breakpoints, 'sm-and-down')} {
+    @include content($header-height: 56px);
+  }
+
+  /* Entire scrollbar */
   ::-webkit-scrollbar {
     background: #222;
     width: 10px;
     border-radius: 6px;
   }
 
-  /* Track */
+  /* Trackbar (background) */
   ::-webkit-scrollbar-track {
     background: #222;
     border-radius: 6px;
@@ -70,10 +92,12 @@
   ::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 6px;
+    transition: background 0.2s;
   }
 
-  /* Handle on hover */
+  /* Handle (hover) */
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
+    transition: background 0.2s;
   }
 </style>
