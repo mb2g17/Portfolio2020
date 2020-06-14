@@ -9,7 +9,7 @@
     :hide-default-footer="true"
   >
     <!-- Markdown -->
-    <template v-slot:item.story.content.changes="{ item }">
+    <template v-slot:item.changes="{ item }">
       <vue-markdown class="markdown" :source="item.changes"></vue-markdown>
     </template>
 
