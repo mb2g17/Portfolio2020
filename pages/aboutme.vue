@@ -11,26 +11,14 @@
 
       </v-col>
       <v-col cols="6">
-        <h2>Education</h2>
+        <h2 class="mb-3">Education</h2>
 
         <v-expansion-panels>
 
           <DegreeExpansionPanel />
-
-          <v-expansion-panel>
-            <v-expansion-panel-header>GCE Advanced Level</v-expansion-panel-header>
-            <v-expansion-panel-content>Hello world</v-expansion-panel-content>
-          </v-expansion-panel>
-
-          <v-expansion-panel>
-            <v-expansion-panel-header>GCSE</v-expansion-panel-header>
-            <v-expansion-panel-content>Hello world</v-expansion-panel-content>
-          </v-expansion-panel>
-
-          <v-expansion-panel>
-            <v-expansion-panel-header>Awards</v-expansion-panel-header>
-            <v-expansion-panel-content>Hello world</v-expansion-panel-content>
-          </v-expansion-panel>
+          <ALevelExpansionPanel />
+          <GCSEExpansionPanel />
+          <AwardsExpansionPanel />
 
         </v-expansion-panels>
       </v-col>
@@ -55,9 +43,15 @@
   import {Component, Vue} from "nuxt-property-decorator";
   import EmploymentCards from "~/components/aboutme/EmploymentCards.vue";
   import DegreeExpansionPanel from "~/components/aboutme/DegreeExpansionPanel.vue";
+  import ALevelExpansionPanel from "~/components/aboutme/ALevelExpansionPanel.vue";
+  import GCSEExpansionPanel from "~/components/aboutme/GCSEExpansionPanel.vue";
+  import AwardsExpansionPanel from "~/components/aboutme/AwardsExpansionPanel.vue";
 
   @Component({
     components: {
+      AwardsExpansionPanel,
+      GCSEExpansionPanel,
+      ALevelExpansionPanel,
       DegreeExpansionPanel,
       EmploymentCards
     }

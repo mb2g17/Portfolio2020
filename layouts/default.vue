@@ -14,8 +14,8 @@
       <nuxt />
     </v-content>
 
-    <!-- Footer -->
-    <Footer />
+    <!-- Footer
+    <Footer /> -->
 
   </v-app>
 </template>
