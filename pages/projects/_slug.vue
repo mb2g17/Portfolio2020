@@ -50,6 +50,7 @@
                   v-for="language in project.languages"
                   :key="language"
                   :value="language"
+                  :disabled="!filteredLanguages"
 
                   @click="$emit('languagechipclick', language)"
                 >
@@ -70,6 +71,7 @@
                   v-for="framework in project.frameworks"
                   :key="framework"
                   :value="framework"
+                  :disabled="!filteredFrameworks"
 
                   @click="$emit('frameworkchipclick', framework)"
                 >
@@ -90,16 +92,19 @@
                   v-for="technology in project.technologies"
                   :key="technology"
                   :value="technology"
+                  :disabled="!filteredTechnologies"
 
                   @click="$emit('technologychipclick', technology)"
-                >{{ technologyStore.find(technology).name }}</v-chip>
+                >
+                  {{ technologyStore.find(technology).name }}
+                </v-chip>
               </v-chip-group>
               <v-divider class="my-2"></v-divider>
             </template>
 
             <template v-if="project.tags.length > 0">
               <h3 class="mb-1">Tags</h3>
-              <v-chip-group column multiple :value="filteredTags">
+              <v-chip-group column multiple disabled :value="filteredTags">
                 <v-chip
                   filter
                   class="animate-chip mr-1 mb-2"
@@ -108,9 +113,12 @@
                   v-for="tag in project.tags"
                   :key="tag"
                   :value="tag"
+                  :disabled="!filteredTags"
 
                   @click="$emit('tagchipclick', tag)"
-                >{{ tagStore.find(tag).name }}</v-chip>
+                >
+                  {{ tagStore.find(tag).name }}
+                </v-chip>
               </v-chip-group>
             </template>
 
