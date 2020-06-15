@@ -26,9 +26,9 @@
 
       <p>From a young age, I've been interested in programming. When I was younger, I drew comics and created stories based on those comics. I used to have ideas on making games for those comic series, taking inspiration from video games I played. With that, I soon got around to it when I learned how to use the Game Maker engine at the age of 9.</p>
 
-      <p>After around 2 years of using the Game Maker engine, I moved on to proper programming languages, my first being C. I started off with making command prompt games and utilities.</p>
+      <p>After around 2 years of using the Game Maker engine, I moved on to proper programming languages, my first being C. I started off with making command-line interface utilities.</p>
 
-      <p>Eventually, I sprouted off to other languages such as C++, Java, and C# (in that order). Following this, I started using a broader range of frameworks, libraries, and programming technologies.</p>
+      <p>Eventually, I sprouted off to other languages such as C++, Java, and C#. Following this, I started using a broader range of frameworks, libraries, and programming technologies.</p>
 
       <p>My projects are not the only things I am showcasing; this website was also hand-crafted by yours truly!</p>
     </v-container>

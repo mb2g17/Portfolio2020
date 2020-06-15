@@ -8,11 +8,17 @@ import Tag from "~/plugins/api/components/Tag";
 import Technology from "~/plugins/api/components/Technology";
 import { spaceVersionModule } from "~/utils/store/store-accessor";
 import axios from "axios";
+import Resume from "~/plugins/api/components/Resume";
 
 /**
  * Interface of the API plugin
  */
 export interface ApiPluginInterface {
+  /**
+   * Gets resume object
+   */
+  getResume: () => Promise<Resume | undefined>;
+
   /**
    * Gets one story based on slug
    * @param fullSlug - the full slug of the story to get
@@ -33,6 +39,10 @@ export interface ApiPluginInterface {
 const api = process.env.API;
 const versionApi = process.env.VERSION_API;
 const token = process.env.TOKEN;
+
+export const getResume: ApiPluginInterface["getResume"] = async () => {
+  return await getStory("resume") as Resume;
+}
 
 export const getStory: ApiPluginInterface["getStory"] = async(fullSlug: string, options?: any, headers?: boolean) => {
   // Guard: if we don't have our variables
@@ -120,6 +130,8 @@ const toStory = (rawStory: any): Story => {
       return new Tag(rawStory);
     case "technology":
       return new Technology(rawStory);
+    case "resume":
+      return new Resume(rawStory);
     default:
       throw Error(`Unrecognised component '${rawStory.content.component}' on story '${rawStory.full_slug}'.`);
   }

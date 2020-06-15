@@ -9,12 +9,10 @@
     "build": "nuxt-ts build",
     "generate": "nuxt-ts generate",
     "start": "nuxt-ts start",
-
     "dev-old": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
     "build-old": "nuxt build",
     "start-old": "cross-env NODE_ENV=production node server/index.js",
     "generate-old": "nuxt generate",
-
     "test": "ava",
     "test:unit": "cross-env TEST=unit ava ./test/specs/**/*",
     "test:e2e": "cross-env TEST=e2e ava ./test/e2e/**/*"
@@ -27,6 +25,8 @@
     "express": "^4.16.4",
     "nuxt": "^2.0.0",
     "nuxt-property-decorator": "^2.7.2",
+    "three": "^0.117.1",
+    "vanta": "^0.5.15",
     "vue-markdown": "^2.2.4"
   },
   "devDependencies": {
