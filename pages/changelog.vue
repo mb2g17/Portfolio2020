@@ -36,5 +36,11 @@
   export default class ChangelogPage extends Vue {
     /** A list of changes, populated by asyncData */
     private changes: Change[] = [];
+
+    head() {
+      return {
+        title: "Changelog"
+      };
+    }
   }
 </script>

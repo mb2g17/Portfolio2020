@@ -141,6 +141,12 @@
     /** Tag UUIDs to filter; null if no filtering required */
     private filteredTags: string[] | null = null;
 
+    head() {
+      return {
+        title: "Projects"
+      };
+    }
+
     /**
      * Loads a page of projects
      */

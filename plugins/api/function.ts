@@ -54,7 +54,7 @@ export const getStory: ApiPluginInterface["getStory"] = async(fullSlug: string, 
   await updateSpaceVersion();
 
   // Parses our request
-  const response = await axios.get(`${api}/${fullSlug}`, {
+  let response = await axios.get(`${api}/${fullSlug}`, {
     params: {
       ...options,
       token,
@@ -64,8 +64,12 @@ export const getStory: ApiPluginInterface["getStory"] = async(fullSlug: string, 
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json"
-    }
+    },
+    validateStatus: () => true
   });
+
+  if (response.status === 404)
+    throw Error("Couldn't fetch project " + fullSlug);
 
   // Creates our story
   const story: Story = toStory(response.data.story);

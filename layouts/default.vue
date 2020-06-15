@@ -37,12 +37,6 @@
     /** If true, drawer is open. If false, it's invisible */
     private drawerOpen: boolean = false;
 
-    head() {
-      return {
-        title: "My title"
-      };
-    }
-
     /**
      * When user clicks drawer icon on header
      */

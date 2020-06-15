@@ -163,9 +163,20 @@
 
   @Component({
     async asyncData(ctx: Context) {
+      // Fetches the project (or dies trying)
+      let project;
+      try {
+        project = await ctx.app.$api.getStory(`projects/${ctx.route.params.slug}`, {}, false);
+      } catch (err) {
+        ctx.error({
+          statusCode: 404,
+          message: `Couldn't fetch project ${ctx.route.params.slug}`
+        });
+      }
+
       // Gets project
       return {
-        project: await ctx.app.$api.getStory(`projects/${ctx.route.params.slug}`, {}, false)
+        project
       };
     }
   })
@@ -192,6 +203,12 @@
 
     /** Project we are displaying */
     private project!: Project;
+
+    head() {
+      return {
+        title: this.project.name
+      };
+    }
 
     /**
      * Returns formatted date in the project property

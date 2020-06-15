@@ -111,6 +111,12 @@
     /** Vanta effect handle for first page */
     private vantaEffect: any;
 
+    head() {
+      return {
+        title: "Home"
+      };
+    }
+
     async mounted() {
       this.vantaEffect = Vanta({
         el: "#first-page",

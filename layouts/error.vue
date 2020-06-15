@@ -33,13 +33,11 @@
     statusCode: number;
   }
 
-  @Component({})
+  @Component({
+    layout: 'error'
+  })
   export default class ErrorLayout extends Vue {
     @Prop({ type: Object, default: null}) error!: ErrorParameters;
-
-    layout() {
-      return "empty";
-    }
 
     head() {
       return { title: this.error.message };

@@ -75,6 +75,11 @@
     }
   })
   export default class AboutMePage extends Vue {
+    head() {
+      return {
+        title: "About Me"
+      };
+    }
 
     /**
      * My age in years
