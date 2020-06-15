@@ -112,6 +112,7 @@
     }
     // Phone
     @media #{map-get($display-breakpoints, 'sm-and-down')} {
+      border-radius: 10px;
       width: 100%;
       max-width: 300px;
       height: auto;
