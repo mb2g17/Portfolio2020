@@ -9,14 +9,14 @@
       <v-container class="d-flex justify-center" v-if="$vuetify.breakpoint.smAndDown">
         <v-img
           class="portrait ma-5"
-          :src="require('~/assets/images/me.jpg')"
+          :src="require('~/assets/images/wine.jpg')"
         ></v-img>
       </v-container>
 
       <!-- Desktop image -->
       <v-img
         class="portrait ma-5"
-        :src="require('~/assets/images/me.jpg')"
+        :src="require('~/assets/images/wine.jpg')"
         v-else
       ></v-img>
 
@@ -107,7 +107,7 @@
     @media #{map-get($display-breakpoints, 'md-and-up')} {
       border-radius: 10px;
       float: right;
-      width: 200px;
+      width: 300px;
       height: auto;
     }
     // Phone

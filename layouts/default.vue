@@ -27,6 +27,8 @@
   import {Component, Vue} from "nuxt-property-decorator";
 
   @Component({
+    scrollToTop: true,
+    layout: "default",
     components: {
       Header, Drawer, Footer
     }
@@ -35,8 +37,10 @@
     /** If true, drawer is open. If false, it's invisible */
     private drawerOpen: boolean = false;
 
-    layout() {
-      return "default";
+    head() {
+      return {
+        title: "My title"
+      };
     }
 
     /**

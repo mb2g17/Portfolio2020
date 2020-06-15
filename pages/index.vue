@@ -63,24 +63,13 @@
       <v-container
         class="d-flex flex-column align-center mb-5"
       >
-        <v-btn width="80%" height="80px" nuxt href="/projects">More projects</v-btn>
+        <v-btn width="80%" height="80px" nuxt href="/projects">
+          More projects
+        </v-btn>
       </v-container>
 
     </v-container>
   </div>
-  <!--
-  <v-container>
-
-    <h1>Home</h1>
-
-    <h2>Starred projects:</h2>
-    <div v-for="project in starredProjects" :key="project.uuid">
-      <p>{{ project.name }}</p>
-      <p>{{ project.release }}</p>
-    </div>
-
-  </v-container>
-  -->
 </template>
 
 <script lang="ts">
