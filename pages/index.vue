@@ -38,7 +38,7 @@
         <v-col
           cols="12"
           md="6"
-          :order="$vuetify.breakpoint.mdAndUp ? i % 2 : 0"
+          :order="$vuetify.breakpoint.smAndDown ? 0 : i % 2"
         >
           <v-img class="rounded project-image" :src="starredProject.banner"></v-img>
         </v-col>
@@ -48,7 +48,7 @@
           class="d-flex flex-column justify-center align-center"
           cols="12"
           md="6"
-          :order="$vuetify.breakpoint.mdAndUp ? 1 - i % 2 : 1"
+          :order="$vuetify.breakpoint.smAndDown ? 1 : 1 - i % 2"
           nuxt
         >
           <h1 class="text-center">{{ starredProject.name }}</h1>
