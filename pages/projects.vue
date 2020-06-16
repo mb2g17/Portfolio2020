@@ -106,7 +106,7 @@
       }, true) as [Project[], any];
 
       return {
-        projects,
+        projects: JSON.parse(JSON.stringify(projects)),
         total: parseInt(headers.total)
       };
     }

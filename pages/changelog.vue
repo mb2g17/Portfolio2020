@@ -25,7 +25,7 @@
       // If call was successful, return list of changes
       if (stories) {
         return {
-          changes: stories as Change[]
+          changes: JSON.parse(JSON.stringify(stories))
         };
       }
     },

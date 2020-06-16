@@ -96,8 +96,8 @@
         throw Error("Couldn't fetch resume object");
 
       return {
-        starredProjects: starredProjects as Project[],
-        resume: resume as Resume
+        starredProjects: JSON.parse(JSON.stringify(starredProjects)),
+        resume: JSON.parse(JSON.stringify(resume))
       };
     }
   })

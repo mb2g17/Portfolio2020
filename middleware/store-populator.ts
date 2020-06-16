@@ -29,7 +29,10 @@ const storePopulator: Middleware = async (context: Context) => {
 
     // Puts those stories in the store
     for (const story of stories) {
-      store.insert({uuid: story.uuid, story});
+      store.insert({
+        uuid: story.uuid,
+        story: JSON.parse(JSON.stringify(story)) // Hate to do this but server can't serialise object to client
+      });
     }
   }
 
