@@ -36,8 +36,8 @@ export interface ApiPluginInterface {
 }
 
 // Environment variables
-const api = process.env.API;
 const versionApi = process.env.VERSION_API;
+const api = process.env.API;
 const token = process.env.TOKEN;
 
 export const getResume: ApiPluginInterface["getResume"] = async () => {

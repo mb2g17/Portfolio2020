@@ -85,9 +85,9 @@ module.exports = {
        * Allows client to use environment variables too (true equality)
        */
       new webpack.DefinePlugin({
-        VERSION_API: JSON.stringify(process.env.VERSION_API),
-        API: JSON.stringify(process.env.API),
-        TOKEN: JSON.stringify(process.env.TOKEN)
+        "process.env.VERSION_API": JSON.stringify(process.env.VERSION_API),
+        "process.env.API": JSON.stringify(process.env.API),
+        "process.env.TOKEN": JSON.stringify(process.env.TOKEN)
       })
     ],
 
