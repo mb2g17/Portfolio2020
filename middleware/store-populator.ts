@@ -1,7 +1,5 @@
 import { Middleware, Context } from "@nuxt/types";
-import { frameworkStore, languageStore, tagStore, technologyStore } from "~/utils/store/store-accessor";
 import { getStories } from "~/plugins/api/function";
-import MappingModule from "~/utils/store/MappingModule";
 import Story from "~/plugins/api/components/Story";
 
 const storePopulator: Middleware = async (context: Context) => {
@@ -10,11 +8,11 @@ const storePopulator: Middleware = async (context: Context) => {
     return;
 
   // List of stories and their respective stores
-  const storyTypes: [string, MappingModule<any>][] = [
-    ["frameworks", frameworkStore],
-    ["languages", languageStore],
-    ["tags", tagStore],
-    ["technologies", technologyStore]
+  const storyTypes: [string, /*MappingModule<any>*/any][] = [
+    ["frameworks", "frameworkmodule/insert"],
+    ["languages", "languagemodule/insert"],
+    ["tags", "tagmodule/insert"],
+    ["technologies", "technologymodule/insert"]
   ];
 
   // Goes through every story
@@ -29,7 +27,8 @@ const storePopulator: Middleware = async (context: Context) => {
 
     // Puts those stories in the store
     for (const story of stories) {
-      store.insert({
+      // We have to use context and not store object because built version is picky
+      context.store.commit(store, {
         uuid: story.uuid,
         story: JSON.parse(JSON.stringify(story)) // Hate to do this but server can't serialise object to client
       });
