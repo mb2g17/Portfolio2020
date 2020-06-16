@@ -1,4 +1,5 @@
 require("dotenv").config();
+const webpack = require("webpack");
 
 module.exports = {
   mode: 'universal',
@@ -78,6 +79,17 @@ module.exports = {
     */
     extend (config, ctx) {
     },
+
+    plugins: [
+      /**
+       * Allows client to use environment variables too (true equality)
+       */
+      new webpack.DefinePlugin({
+        VERSION_API: JSON.stringify(process.env.VERSION_API),
+        API: JSON.stringify(process.env.API),
+        TOKEN: JSON.stringify(process.env.TOKEN)
+      })
+    ],
 
     // Babel stuff
     babel: {
