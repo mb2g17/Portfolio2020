@@ -1,6 +1,9 @@
-# Portfolio2020
+# Matthew Barnes Portfolio (2020)
 
-> My exquisite Nuxt.js project
+My portfolio made in TypeScript with Nuxt.js.
+
+## Continuous Deployment
+Pushing commits to the master branch automatically deploys the site to the production heroku app.
 
 ## Build Setup
 
@@ -19,4 +22,4 @@ $ npm run start
 $ npm run generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+For detailed explanation on how things work with Nuxt.js, check out [Nuxt.js docs](https://nuxtjs.org).
