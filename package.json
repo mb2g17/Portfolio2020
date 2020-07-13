@@ -1,7 +1,7 @@
 {
   "name": "Portfolio2020",
   "version": "1.0.0",
-  "description": "My exquisite Nuxt.js project",
+  "description": "A hand-crafted website about me: Matthew Barnes.",
   "author": "Matthew Barnes",
   "private": true,
   "scripts": {
