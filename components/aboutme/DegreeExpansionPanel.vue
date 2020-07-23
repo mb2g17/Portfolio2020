@@ -99,7 +99,7 @@
       },
       {
         module: "Part III Individual Project",
-        marks: "??"
+        marks: 79
       },
       {
         module: "Cloud Application Development",
@@ -107,20 +107,20 @@
       },
       {
         module: "Advanced Databases",
-        marks: "??"
+        marks: 64
       },
       {
         module: "Game Design and Development",
-        marks: "??"
+        marks: 76
       },
       {
         module: "Engineering Management & Law",
-        marks: 62
+        marks: 65
       },
       {
         module: "Machine Learning Technologies",
         marks: 82
-      },
+      }
     ];
   }
 </script>
