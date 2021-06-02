@@ -20,7 +20,7 @@
         <v-col id="aboutme-body" cols="12" md="8">
           <h1 class="mb-2">Welcome!</h1>
           <p>I am a software developer with a passion for automation, clean code, and cool programs that do cool things.</p>
-          <p>In my spare time, I play video games and work on self-driven projects.</p>
+          <p>In my spare time, I work on self-driven projects and play video games.</p>
           <v-btn id="aboutme-resume" :href="resume.link" target="_blank">Download my resume</v-btn>
         </v-col>
       </v-row>
