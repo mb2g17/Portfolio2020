@@ -1,3 +1,5 @@
+[![Available on GitHub](https://img.shields.io/badge/Available%20on-GitHub-white?style=flat-square&logo=github)](https://github.com/mb2g17/Portfolio2020)
+
 # Matthew Barnes Portfolio (2020)
 
 My portfolio made in TypeScript with Nuxt.js.
