@@ -29,30 +29,13 @@
     <!-- Starred projects -->
     <v-container>
 
-      <v-row
-        class="mb-5 project-row"
-        @click="$router.push(`projects/${starredProject.slug}`)"
-        v-for="(starredProject, i) in starredProjects" :key="starredProject.slug"
-      >
-        <!-- Banner -->
-        <v-col
-          cols="12"
-          md="6"
-          :order="$vuetify.breakpoint.smAndDown ? 0 : i % 2"
-        >
-          <v-img class="rounded project-image" :src="starredProject.banner"></v-img>
-        </v-col>
+      <h1 class="mb-5" align="center">Star Projects</h1>
 
-        <!-- Description -->
-        <v-col
-          class="d-flex flex-column justify-center align-center"
-          cols="12"
-          md="6"
-          :order="$vuetify.breakpoint.smAndDown ? 1 : 1 - i % 2"
-          nuxt
-        >
-          <h1 class="text-center">{{ starredProject.name }}</h1>
-          <p class="text-center">{{ starredProject.summary }}</p>
+      <v-row>
+        <v-col v-for="starredProject in starredProjects" :key="starredProject.slug" cols="12" md="3">
+          <ProjectCard
+            :project="starredProject"
+          />
         </v-col>
       </v-row>
 
@@ -75,8 +58,12 @@
   import Vanta from "vanta/dist/vanta.net.min";
   import * as THREE from "three";
   import Resume from "~/plugins/api/components/Resume";
+  import ProjectCard from "~/components/ProjectCard.vue";
 
   @Component({
+    components: {
+      ProjectCard
+    },
     async asyncData(context: Context) {
       // Gets the latest 4 starred projects
       const starredProjects = await context.app.$api.getStories({
@@ -208,26 +195,5 @@
 
   .rounded {
     border-radius: 8px;
-  }
-
-  .project-row {
-    color: darkgrey;
-    transition: color 0.2s;
-
-    .project-image {
-      transform: rotate(0deg);
-      transition: transform 0.2s;
-    }
-
-    &:hover {
-      color: white;
-      cursor:pointer;
-      transition: color 0.2s;
-
-      .project-image {
-        transform: rotate(2deg);
-        transition: transform 0.2s;
-      }
-    }
   }
 </style>
