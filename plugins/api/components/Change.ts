@@ -12,8 +12,20 @@ export default class Change extends Story {
 
   public constructor(story: any) {
     super(story);
-    let bufferDate: Date = new Date(story.content.date);
-    this.date = bufferDate.getFullYear() + "-" + (bufferDate.getMonth() + 1) + "-" + bufferDate.getDate();
+    const bufferDate: Date = new Date(story.content.date);
+
+    const year = bufferDate.getFullYear();
+    const month = this.padWithZeroes("" + (bufferDate.getMonth() + 1));
+    const date = this.padWithZeroes("" + (bufferDate.getDate()));
+
+    this.date = year + "-" + month + "-" + date;
     this.changes = story.content.changes;
+  }
+
+  public padWithZeroes(str: string): string {
+    if (str.length == 1)
+      return "0" + str;
+    else
+      return str;
   }
 }
