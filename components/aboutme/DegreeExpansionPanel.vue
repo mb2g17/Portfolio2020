@@ -3,7 +3,7 @@
     <v-expansion-panel-header>Degree</v-expansion-panel-header>
     <v-expansion-panel-content>
       <h2>University of Southampton</h2>
-      <p>Masters Degree in Software Engineering, 2017 - 2021</p>
+      <p>Software Engineering, Master of Engineering (MEng), 2017 - 2021</p>
 
       <v-data-table
         dense
