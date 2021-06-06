@@ -5,7 +5,7 @@
 My portfolio made in TypeScript with Nuxt.js.
 
 ## Continuous Deployment
-Pushing commits to the master branch automatically deploys the site to the production heroku app.
+This project used to rely on Heroku, but to deploy to https://matt-barnes.co.uk, push new changes and run the Jenkins job 'Portfolio Deployment'.
 
 ## Build Setup
 
