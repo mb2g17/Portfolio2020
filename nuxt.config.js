@@ -19,6 +19,12 @@ module.exports = {
     ]
   },
   /*
+  ** Server configurations
+   */
+  server: {
+    port: 8000,
+  },
+  /*
   ** Customize the progress-bar color
   */
   loading: { color: '#fff' },
