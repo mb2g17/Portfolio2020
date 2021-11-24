@@ -18,7 +18,7 @@
             >
               <v-card-title>Bitcoin</v-card-title>
               <v-card-text align="center">
-                <code>bc1qnedvzjz3f0xkx85hnhqsyevllzwxf923ztxrqt</code>
+                <code class="wrap-overflow">bc1qnedvzjz3f0xkx85hnhqsyevllzwxf923ztxrqt</code>
                 <v-img
                   max-width="145"
                   max-height="145"
@@ -42,7 +42,7 @@
             >
               <v-card-title>Monero</v-card-title>
               <v-card-text align="center">
-                <code>89Q3zVVBoZFYAWS1X4cKUBgqK9B2PNfSkhrAKNn9ymPDATXy5DdXjzNRtocANZvyVoWojJd1fohWAAymAB3prSqxUhBJAyE</code>
+                <code class="wrap-overflow">89Q3zVVBoZFYAWS1X4cKUBgqK9B2PNfSkhrAKNn9ymPDATXy5DdXjzNRtocANZvyVoWojJd1fohWAAymAB3prSqxUhBJAyE</code>
                 <v-img
                   max-width="240"
                   max-height="240"
@@ -94,4 +94,8 @@
 
 <style scoped lang="scss">
   @import "~vuetify/src/styles/styles";
+
+  .wrap-overflow {
+    overflow-wrap: anywhere;
+  }
 </style>
