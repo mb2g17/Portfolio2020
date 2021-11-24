@@ -70,11 +70,17 @@
         title: "About Me", icon: "mdi-account", to: "/aboutme"
       },
       {
-        title: "My GitHub", icon: "mdi-github", link: "https://github.com/mb2g17"
+        title: "Gitea", icon: "mdi-git", link: "https://git.matt-barnes.co.uk/"
+      },
+      {
+        title: "GitHub", icon: "mdi-github", link: "https://github.com/mb2g17"
       },
       {
         title: "Changelog", icon: "mdi-text-box", to: "/changelog"
-      }
+      },
+      {
+        title: "Donate", icon: "mdi-cash", to: "/donate"
+      },
     ];
 
     /** When the user opens / closes the drawer */
