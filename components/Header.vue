@@ -36,6 +36,7 @@
       </v-menu>
 
       <v-tab nuxt to="/changelog">Changelog</v-tab>
+      <v-tab nuxt to="/donate">Donate</v-tab>
     </v-tabs>
 
   </v-app-bar>
