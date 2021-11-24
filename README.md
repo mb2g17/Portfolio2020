@@ -14,7 +14,7 @@ This project used to rely on Heroku, but to deploy to https://matt-barnes.co.uk,
 # install dependencies
 $ npm install
 
-# serve with hot reload at localhost:3000
+# serve with hot reload at localhost:8000 (can change in nuxt.config.js)
 $ npm run dev
 
 # build for production and launch server
