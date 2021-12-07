@@ -96,7 +96,7 @@
       difference = difference /= 60; // sec to min
       difference = difference /= 60; // min to hr
       difference = difference /= 24; // hr to day
-      difference = difference /= 365; // day to year
+      difference = difference /= 365.25; // day to year
 
       // Floors difference to get my age in years
       return Math.floor(difference);
