@@ -28,7 +28,7 @@
     "express": "^4.16.4",
     "nuxt": "^2.0.0",
     "nuxt-property-decorator": "^2.7.2",
-    "three": "^0.117.1",
+    "three": "^0.137.0",
     "vanta": "^0.5.15",
     "vue-markdown": "^2.2.4"
   },
