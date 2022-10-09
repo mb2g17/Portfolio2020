@@ -21,8 +21,8 @@
   "dependencies": {
     "@nuxt/typescript-runtime": "^0.4.9",
     "@nuxtjs/axios": "^5.3.6",
-    "@nuxtjs/vuetify": "^1.0.0",
     "@nuxtjs/dotenv": "^1.4.1",
+    "@nuxtjs/vuetify": "^1.0.0",
     "@types/vue-markdown": "^2.2.1",
     "cross-env": "^5.2.0",
     "express": "^4.16.4",
@@ -44,6 +44,7 @@
     "require-extension-hooks": "^0.3.3",
     "require-extension-hooks-babel": "^1.0.0",
     "require-extension-hooks-vue": "^2.0.0",
-    "vuex-module-decorators": "^0.10.1"
+    "vuex-module-decorators": "^0.10.1",
+    "webpack": "^4.46.0"
   }
 }
